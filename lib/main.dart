@@ -1,6 +1,12 @@
+import 'package:expose/backend/router/router.dart';
+import 'package:expose/frontend/layouts/auth/auth_layout.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(const ExposeApp());
+void main() {
+  SystemRouter.initRouter();
+
+  runApp(const ExposeApp());
+}
 
 class ExposeApp extends StatelessWidget {
   const ExposeApp({super.key});
@@ -8,15 +14,13 @@ class ExposeApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
+      debugShowCheckedModeBanner: false,
+      title: 'Expose',
+      initialRoute: SystemRouter.root,
+      onGenerateRoute: (settings) => SystemRouter.router.generator(settings),
+      builder: (context, child) {
+        return AuthLayout(child: child!);
+      },
     );
   }
 }
