@@ -3,8 +3,10 @@ import 'package:expose/frontend/layouts/auth/auth_layout.dart';
 import 'package:flutter/material.dart';
 
 void main() {
+  //Inicializar sistema de rutas
   SystemRouter.initRouter();
 
+  //Inicializar aplicación
   runApp(const ExposeApp());
 }
 
@@ -17,8 +19,8 @@ class ExposeApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Expose',
       initialRoute: SystemRouter.root,
-      onGenerateRoute: (settings) => SystemRouter.router.generator(settings),
-      builder: (context, child) {
+      onGenerateRoute: SystemRouter.router.generator,
+      builder: (_, child) {
         return AuthLayout(child: child!);
       },
     );

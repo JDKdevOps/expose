@@ -23,5 +23,8 @@ class SystemRouter {
     //auth define
     router.define(login,
         handler: RouterHandlers.login, transitionType: TransitionType.none);
+
+    //404
+    router.notFoundHandler = RouterHandlers.errorPage;
   }
 }
