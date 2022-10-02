@@ -20,17 +20,23 @@ class AuthLayout extends StatelessWidget {
               _Background(size: size),
               SizedBox(
                 height: size.height * 0.95,
-                width: size.width * 0.4,
+                width: size.width * 0.5,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 45),
+                    const SizedBox(height: 125),
                     Text(
-                      'Todo comienza con una idea',
-                      style: GoogleFonts.montserratAlternates(
-                          fontSize: 65, fontWeight: FontWeight.bold),
+                      'Expose',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 80, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Text('Todo comienza con una idea',
+                        style: GoogleFonts.montserrat(
+                            fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center),
                     Expanded(child: child),
                   ],
                 ),
@@ -56,49 +62,17 @@ class _Background extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: size.height * 0.95,
-      width: size.width * 0.6,
-      child: Container(
-        margin: const EdgeInsets.all(50),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 2),
-          borderRadius: BorderRadius.circular(15),
-          shape: BoxShape.rectangle,
-        ),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 10, left: 10),
-              child: Row(
-                children: const [
-                  Icon(Icons.circle_outlined),
-                  Icon(Icons.circle_outlined),
-                  Icon(Icons.circle_outlined),
-                ],
-              ),
+      width: size.width * 0.5,
+      child: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(80),
+            child: SvgPicture.asset(
+              'pitch.svg',
+              fit: BoxFit.contain,
             ),
-            Expanded(
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: SvgPicture.asset(
-                      'pitch.svg',
-                      fit: BoxFit.contain,
-                    ),
-                  ),
-                  Positioned(
-                    left: 600,
-                    child: Text(
-                      'Expose',
-                      style: GoogleFonts.montserratAlternates(
-                          fontSize: 40, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

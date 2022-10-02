@@ -23,6 +23,12 @@ class SystemRouter {
     //auth define
     router.define(login,
         handler: RouterHandlers.login, transitionType: TransitionType.none);
+    router.define(register,
+        handler: RouterHandlers.register, transitionType: TransitionType.none);
+
+    //dashboard define
+    router.define(dashboard,
+        handler: RouterHandlers.home, transitionType: TransitionType.none);
 
     //404
     router.notFoundHandler = RouterHandlers.errorPage;

@@ -1,5 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:expose/backend/providers/auth_provider.dart';
+import 'package:expose/backend/router/router.dart';
+import 'package:expose/backend/services/navigation_service.dart';
 import 'package:expose/frontend/shared/custom_button.dart';
 import 'package:expose/frontend/shared/custom_input.dart';
 import 'package:expose/frontend/shared/link_text.dart';
@@ -14,7 +16,7 @@ class LoginView extends StatelessWidget {
     final authProvider = Provider.of<AuthProvider>(context);
 
     return Container(
-      margin: const EdgeInsets.only(top: 100),
+      margin: const EdgeInsets.only(top: 20),
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Center(
           child: ConstrainedBox(
@@ -23,6 +25,7 @@ class LoginView extends StatelessWidget {
           autovalidateMode: AutovalidateMode.always,
           key: authProvider.loginKey,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               //Correo
               CustomInput(
@@ -54,10 +57,14 @@ class LoginView extends StatelessWidget {
               const SizedBox(height: 20),
               CustomButton(
                 text: 'Iniciar Sesión',
-                onPressed: () {},
+                onPressed: () => authProvider.login('', ''),
               ),
               const SizedBox(height: 20),
-              LinkText(text: 'Crear una cuenta'),
+              LinkText(
+                text: 'Crear una cuenta',
+                onPressed: () =>
+                    NavigationService.replaceTo(SystemRouter.register),
+              ),
             ],
           ),
         ),
