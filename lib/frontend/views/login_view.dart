@@ -29,6 +29,7 @@ class LoginView extends StatelessWidget {
             children: [
               //Correo
               CustomInput(
+                  onChanged: (value) => authProvider.email = value,
                   validator: (value) {
                     if (!EmailValidator.validate(value ?? '')) {
                       return 'Email no válido';
@@ -40,6 +41,7 @@ class LoginView extends StatelessWidget {
                   icon: Icons.mail_outline),
               const SizedBox(height: 20),
               CustomInput(
+                onChanged: (value) => authProvider.password = value,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Ingrese su contraseña';
@@ -57,7 +59,13 @@ class LoginView extends StatelessWidget {
               const SizedBox(height: 20),
               CustomButton(
                 text: 'Iniciar Sesión',
-                onPressed: () => authProvider.login('', ''),
+                onPressed: () {
+                  final isValid = authProvider.validateLogin();
+                  if (isValid) {
+                    authProvider.login(
+                        authProvider.email, authProvider.password);
+                  }
+                },
               ),
               const SizedBox(height: 20),
               LinkText(

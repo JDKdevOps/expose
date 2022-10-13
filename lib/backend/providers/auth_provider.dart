@@ -1,11 +1,13 @@
-import 'package:expose/backend/router/router.dart';
+import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expose/backend/classes/student_data.dart';
+import 'package:expose/backend/classes/user_data.dart';
+import 'package:expose/backend/providers/system.dart';
 import 'package:expose/backend/services/local_storage.dart';
-import 'package:expose/backend/services/navigation_service.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 class AuthProvider extends ChangeNotifier {
-  String? _token;
-
   AuthStatus authStatus = AuthStatus.checking;
 
   GlobalKey<FormState> loginKey = GlobalKey<FormState>();
@@ -27,12 +29,23 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
 
-    // TODO: ir al backend y comprobar si el JWT es válido
+    late List<QueryDocumentSnapshot<Object?>> response;
+    await SystemData.userSesions
+        .where('tokenId', isEqualTo: token)
+        .get()
+        .then((value) => response = value.docs);
+    if (response.isNotEmpty && response.first["tokenId"] == token) {
+      if (SystemData.userData == null) {
+        await login(response.first["correo"], response.first["password"]);
+      }
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    }
 
-    await Future.delayed(Duration(milliseconds: 1000));
-    authStatus = AuthStatus.authenticated;
+    authStatus = AuthStatus.notAuthenticated;
     notifyListeners();
-    return true;
+    return false;
   }
 
   bool validateLogin() {
@@ -42,16 +55,68 @@ class AuthProvider extends ChangeNotifier {
     return false;
   }
 
-  login(String email, String password) {
-    // TODO: Petición HTTP
-    this._token = 'adjkfhadfyiu12y3hjasd.ajskhdaks.kjshdkjas';
-    LocalStorage.localDB.setString('token', this._token!);
+  Future<bool> login(String email, String password) async {
+    //Get UserData
+    var response = await http
+        .get(Uri.parse("${SystemData.ipServer}/api/users/info/user/$email"));
 
-    authStatus = AuthStatus.authenticated;
-    notifyListeners();
+    var user = UserData.fromJson(jsonDecode(response.body)).user;
+    if (user != null && user.first.estNombreEstado == "active") {
+      //Parse userData and DateTimes
+      SystemData.userData = user.first;
+      var parseDate = DateTime.parse(SystemData.userData!.peFechaNacimiento!);
+      SystemData.userData!.peFechaNacimiento =
+          "${parseDate.year}-${parseDate.month}-${parseDate.day}";
 
-    NavigationService.replaceTo(SystemRouter.dashboard);
+      //Check if user is type Student
+      if (SystemData.userData!.tipTipoUsuario == "Estudiante") {
+        response = await http.get(Uri.parse(
+            "${SystemData.ipServer}/api/users/info/student/${SystemData.userData!.fkIdPersona}"));
+        SystemData.studentData =
+            StudentData.fromJson(jsonDecode(response.body)).user!.first;
+      }
+      //Register Sesion in NoSQL
+      late String tokenId;
+      await tokenGenerator().then((value) => tokenId = value);
+      var noSQL = {
+        "tokenId": tokenId,
+        "correo": SystemData.userData!.idUsuarioCorreo,
+        "password": SystemData.userData!.usuContrasenia,
+        "tipo_usuario": SystemData.userData!.tipTipoUsuario,
+        "apellido1": SystemData.userData!.peApellidoPaterno,
+        "apellido2": SystemData.userData!.peApellidoMaterno,
+        "fecha_nacimiento": SystemData.userData!.peFechaNacimiento,
+        "id_persona": SystemData.userData!.fkIdPersona,
+        "id_estudiante": SystemData.studentData?.idEstudiante,
+        "promedio_ponderado": SystemData.studentData?.estPromedioPonderado,
+        "es_lider": SystemData.studentData?.estEsLider,
+        "facultad": SystemData.studentData?.facNombreFacultad,
+        "semestre": SystemData.studentData?.semNumeroSemestre,
+      };
+      late List<QueryDocumentSnapshot<Object?>> noSQLresponse;
+      await SystemData.userSesions
+          .where("correo", isEqualTo: SystemData.userData!.idUsuarioCorreo)
+          .get()
+          .then((value) => noSQLresponse = value.docs);
+      if (noSQLresponse.isEmpty) {
+        SystemData.userSesions.add(noSQL);
+      } else {
+        SystemData.userSesions.doc(noSQLresponse.first.id).update(noSQL);
+      }
+
+      //Guardar token de sesión local
+      LocalStorage.localDB.setString('token', tokenId);
+      return true;
+    }
+
+    return false;
   }
 }
 
 enum AuthStatus { checking, authenticated, notAuthenticated }
+
+Future<String> tokenGenerator() async {
+  var response = await http
+      .get(Uri.parse("https://www.uuidtools.com/api/generate/timestamp-first"));
+  return response.body.substring(2, response.body.length - 2);
+}

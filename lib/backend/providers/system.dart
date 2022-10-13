@@ -1,18 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:expose/backend/classes/student_data.dart';
+import 'package:expose/backend/classes/user_data.dart';
 
-class System extends ChangeNotifier {
-   RouteStatus routeStatus = RouteStatus.normal;
-   RouteModule routeModule = RouteModule.auth;
-}
-
-//RouteStatus
-enum RouteStatus {
-  normal,
-  error,
-}
-
-//RouteModule
-enum RouteModule {
-  auth,
-  dashboard,
+class SystemData {
+  static  SingleUser? userData;
+  static SingleStudent? studentData;
+  static String ipServer = "http://25.0.213.77:3000";
+  static FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  static CollectionReference userSesions =
+      firebaseFirestore.collection('userSesions');
 }

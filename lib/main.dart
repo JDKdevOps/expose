@@ -1,17 +1,25 @@
 import 'package:expose/backend/providers/auth_provider.dart';
-import 'package:expose/backend/providers/system.dart';
+import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/backend/services/local_storage.dart';
 import 'package:expose/backend/services/navigation_service.dart';
+import 'package:expose/firebase_options.dart';
 import 'package:expose/frontend/layouts/auth/auth_layout.dart';
 import 'package:expose/frontend/layouts/home/home_layout.dart';
 import 'package:expose/frontend/layouts/interface/splash_layout.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  //Inicializar base de datos
+  //Inicializar Firebase
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  //Inicializar base de datos local
   await LocalStorage.initDB();
+
   //Inicializar sistema de rutas
   SystemRouter.initRouter();
 
@@ -27,11 +35,11 @@ class AppState extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => System(),
+          create: (_) => AuthProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider(
-          create: (_) => AuthProvider(),
+          create: (_) => SideMenuProvider(),
           lazy: false,
         ),
       ],
