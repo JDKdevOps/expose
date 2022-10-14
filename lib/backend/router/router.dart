@@ -13,6 +13,7 @@ class SystemRouter {
 
   //Dashboard Router
   static String dashboard = '/dashboard';
+  static String dashboardIniciatives = '/dashboard/:id';
   static String dashGroups = '/dashboard/groups';
   static String dashboardGroupsId = '/dashboard/groups/:id';
 
@@ -33,6 +34,9 @@ class SystemRouter {
         handler: RouterHandlers.home, transitionType: TransitionType.fadeIn);
     router.define(dashGroups,
         handler: RouterHandlers.groups, transitionType: TransitionType.fadeIn);
+    router.define(dashboardIniciatives,
+        handler: RouterHandlers.iniciatives,
+        transitionType: TransitionType.fadeIn);
 
     //404
     router.notFoundHandler = RouterHandlers.errorPage;
