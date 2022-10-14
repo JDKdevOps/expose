@@ -1,3 +1,6 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js;
+
 import 'package:email_validator/email_validator.dart';
 import 'package:expose/backend/providers/auth_provider.dart';
 import 'package:expose/backend/router/router.dart';
@@ -62,8 +65,15 @@ class LoginView extends StatelessWidget {
                 onPressed: () {
                   final isValid = authProvider.validateLogin();
                   if (isValid) {
-                    authProvider.login(
-                        authProvider.email, authProvider.password);
+                    authProvider
+                        .login(authProvider.email, authProvider.password)
+                        .then((value) {
+                      value
+                          ? NavigationService.replaceTo(SystemRouter.dashboard)
+                          : js.context.callMethod("alert", [
+                              "Parece que no has podido iniciar sesión, esto se debe a que posiblemente no existe la cuenta a la cual deseas ingresar, o has escrito el correo/contraseña de forma errónea. Si cree que esto es un error por favor contactar al soporte técnico."
+                            ]);
+                    });
                   }
                 },
               ),

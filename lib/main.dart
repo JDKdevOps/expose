@@ -1,4 +1,5 @@
 import 'package:expose/backend/providers/auth_provider.dart';
+import 'package:expose/backend/providers/dashboard_provider.dart';
 import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/backend/services/local_storage.dart';
@@ -39,6 +40,10 @@ class AppState extends StatelessWidget {
           lazy: false,
         ),
         ChangeNotifierProvider(
+          create: (_) => DashboardProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
           create: (_) => SideMenuProvider(),
           lazy: false,
         ),
@@ -67,7 +72,7 @@ class ExposeApp extends StatelessWidget {
         }
 
         if (authProvider.authStatus == AuthStatus.authenticated) {
-          return HomeLayout(child: child!);
+          return DashboardLayout(child: child!);
         } else {
           return AuthLayout(child: child!);
         }

@@ -61,7 +61,9 @@ class AuthProvider extends ChangeNotifier {
         .get(Uri.parse("${SystemData.ipServer}/api/users/info/user/$email"));
 
     var user = UserData.fromJson(jsonDecode(response.body)).user;
-    if (user != null && user.first.estNombreEstado == "active") {
+    if (user!.isNotEmpty &&
+        user.first.estNombreEstado == "active" &&
+        user.first.usuContrasenia == password) {
       //Parse userData and DateTimes
       SystemData.userData = user.first;
       var parseDate = DateTime.parse(SystemData.userData!.peFechaNacimiento!);
@@ -106,6 +108,8 @@ class AuthProvider extends ChangeNotifier {
 
       //Guardar token de sesión local
       LocalStorage.localDB.setString('token', tokenId);
+      authStatus = AuthStatus.authenticated;
+      notifyListeners();
       return true;
     }
 
