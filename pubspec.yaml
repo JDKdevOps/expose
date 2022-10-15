@@ -1,4 +1,4 @@
-name: expose
+wname: expose
 description: Aplicación web para descubrir o exponer emprendimientos universitarios.
 
 # The following line prevents the package from being accidentally published to
@@ -39,6 +39,7 @@ dependencies:
   flutter_svg: ^1.1.5
   google_fonts: ^3.0.1
   http: ^0.13.5
+  pod_player: ^0.1.0
   provider: ^6.0.3
   shared_preferences: ^2.0.15
 
