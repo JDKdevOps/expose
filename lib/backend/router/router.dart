@@ -1,5 +1,6 @@
 import 'package:expose/backend/router/router_handlers.dart';
 import 'package:fluro/fluro.dart';
+import 'package:flutter/cupertino.dart';
 
 class SystemRouter {
   static final FluroRouter router = FluroRouter();
@@ -16,6 +17,13 @@ class SystemRouter {
   static String dashboardIniciatives = '/dashboard/:id';
   static String dashGroups = '/dashboard/groups';
   static String dashboardGroupsId = '/dashboard/groups/:id';
+  static String dashboardProfile = "/dashboard/profile";
+  static String dashboardPrivacy = "/dashboard/privacy";
+  static String dashboardLeaders = "/dashboard/leaders";
+  static String dashboardProposals = "/dashboard/proposals";
+  static String dashboardComments = "/dashboard/comments";
+  static String dashboardCoordinators = "/dashboard/coordinators";
+  static String dashboardLogout = "/dashboard/logout";
 
   //Inicializar Router
   static void initRouter() {

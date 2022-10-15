@@ -13,18 +13,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  //Inicializar Firebase
+  //Inicia la base de datos no relacional
+  //Realiza una petición con los credenciales a firebase para instanciarse
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   //Inicializar base de datos local
+  //Crea la instancia de la base de datos local en el navegador
   await LocalStorage.initDB();
 
   //Inicializar sistema de rutas
+  //Crea las URL accesibles por el usuario final
   SystemRouter.initRouter();
 
   //Inicializar aplicación
+  //Inicia el arbol de widgets para toda la aplicación desde root
   runApp(const AppState());
 }
 
@@ -33,6 +37,8 @@ class AppState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Crea un servicio múltiple de Providers
+    //Instancia distintos servicios para manejar el estado de la página
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -58,6 +64,8 @@ class ExposeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Inicia la aplicación web
+    //Instancia la aplicación en la dirección URL especificada
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Expose',

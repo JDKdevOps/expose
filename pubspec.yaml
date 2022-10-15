@@ -1,4 +1,4 @@
-wname: expose
+name: expose
 description: Aplicación web para descubrir o exponer emprendimientos universitarios.
 
 # The following line prevents the package from being accidentally published to
