@@ -20,8 +20,8 @@ class CustomDialog extends StatelessWidget {
       ),
       content: Container(
         alignment: Alignment.center,
-        width: 500,
-        height: 200,
+        width: 700,
+        height: 400,
         child: Text(
           content,
           style: const TextStyle(

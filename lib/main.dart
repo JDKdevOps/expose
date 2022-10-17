@@ -6,7 +6,7 @@ import 'package:expose/backend/services/local_storage.dart';
 import 'package:expose/backend/services/navigation_service.dart';
 import 'package:expose/firebase_options.dart';
 import 'package:expose/frontend/layouts/auth/auth_layout.dart';
-import 'package:expose/frontend/layouts/home/home_layout.dart';
+import 'package:expose/frontend/layouts/home/dashboard_layout.dart';
 import 'package:expose/frontend/layouts/interface/splash_layout.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';

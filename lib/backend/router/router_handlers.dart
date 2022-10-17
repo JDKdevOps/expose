@@ -3,8 +3,8 @@ import 'package:expose/backend/providers/dashboard_provider.dart';
 import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/frontend/views/groups_view.dart';
-import 'package:expose/frontend/views/home_view.dart';
 import 'package:expose/frontend/views/iniciatives_view.dart';
+import 'package:expose/frontend/views/d1.dart';
 import 'package:expose/frontend/views/login_view.dart';
 import 'package:expose/frontend/views/register_view.dart';
 import 'package:fluro/fluro.dart';
@@ -20,7 +20,7 @@ class RouterHandlers {
       if (authProvider.authStatus == AuthStatus.notAuthenticated) {
         return const LoginView();
       } else {
-        return const HomeView();
+        return const IniciativesView();
       }
     },
   );
@@ -32,7 +32,7 @@ class RouterHandlers {
       if (authProvider.authStatus == AuthStatus.notAuthenticated) {
         return const RegisterView();
       } else {
-        return const HomeView();
+        return const IniciativesView();
       }
     },
   );
@@ -44,7 +44,7 @@ class RouterHandlers {
       Provider.of<SideMenuProvider>(context, listen: false)
           .setCurrentPageUrl(SystemRouter.dashboard);
       if (authProvider.authStatus == AuthStatus.authenticated) {
-        return const HomeView();
+        return const IniciativesView();
       } else {
         return const LoginView();
       }
