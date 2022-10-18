@@ -1,51 +1,48 @@
 class Iniciativa {
-  List<Initiative>? initiative;
+  List<Initiatives>? initiatives;
 
-  Iniciativa({this.initiative});
+  Iniciativa({this.initiatives});
 
   Iniciativa.fromJson(Map<String, dynamic> json) {
-    if (json['initiative'] != null) {
-      initiative = <Initiative>[];
-      json['initiative'].forEach((v) {
-        initiative!.add(Initiative.fromJson(v));
+    if (json['initiatives'] != null) {
+      initiatives = <Initiatives>[];
+      json['initiatives'].forEach((v) {
+        initiatives!.add(Initiatives.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (initiative != null) {
-      data['initiative'] = initiative!.map((v) => v.toJson()).toList();
+    if (initiatives != null) {
+      data['initiatives'] = initiatives!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Initiative {
+class Initiatives {
   String? iniNombre;
   String? iniDescripcion;
   int? iniCalificacionPromedio;
   String? iniDiapositiva;
   String? iniVideo;
-  String? estNombreEstado;
   String? gruNombre;
 
-  Initiative(
+  Initiatives(
       {this.iniNombre,
       this.iniDescripcion,
       this.iniCalificacionPromedio,
       this.iniDiapositiva,
       this.iniVideo,
-      this.estNombreEstado,
       this.gruNombre});
 
-  Initiative.fromJson(Map<String, dynamic> json) {
+  Initiatives.fromJson(Map<String, dynamic> json) {
     iniNombre = json['ini_nombre'];
     iniDescripcion = json['ini_descripcion'];
     iniCalificacionPromedio = json['ini_calificacion_promedio'];
     iniDiapositiva = json['ini_diapositiva'];
     iniVideo = json['ini_video'];
-    estNombreEstado = json['est_nombre_estado'];
     gruNombre = json['gru_nombre'];
   }
 
@@ -56,7 +53,6 @@ class Initiative {
     data['ini_calificacion_promedio'] = iniCalificacionPromedio;
     data['ini_diapositiva'] = iniDiapositiva;
     data['ini_video'] = iniVideo;
-    data['est_nombre_estado'] = estNombreEstado;
     data['gru_nombre'] = gruNombre;
     return data;
   }

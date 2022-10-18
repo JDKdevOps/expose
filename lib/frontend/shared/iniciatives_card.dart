@@ -1,26 +1,29 @@
+import 'package:expose/backend/classes/iniciativa.dart';
+import 'package:expose/backend/providers/initiatives_provider.dart';
+import 'package:expose/frontend/pages/rating_builder.dart';
 import 'package:expose/frontend/shared/custom_dialog.dart';
+import 'package:expose/frontend/pages/iniciative_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class IniciativesCard extends StatelessWidget {
-  final String? title;
-  final Widget child;
+  final Initiatives initiative;
   final double? width;
   final double? height;
-  final Function? onPressed;
 
   const IniciativesCard({
     Key? key,
-    required this.child,
-    this.title,
     this.width,
     this.height,
-    this.onPressed,
+    required this.initiative,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final dashboardProvider = Provider.of<InitiativesProvider>(context);
+
     return Container(
       width: width,
       margin: const EdgeInsets.all(15),
@@ -29,17 +32,15 @@ class IniciativesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (title != null) ...[
-            FittedBox(
-              fit: BoxFit.contain,
-              child: Text(
-                title!,
-                style: GoogleFonts.roboto(
-                    fontSize: 25, fontWeight: FontWeight.bold),
-              ),
+          FittedBox(
+            fit: BoxFit.contain,
+            child: Text(
+              initiative.iniNombre!,
+              style:
+                  GoogleFonts.roboto(fontSize: 25, fontWeight: FontWeight.bold),
             ),
-            const Divider()
-          ],
+          ),
+          const Divider(),
           Align(
             alignment: Alignment.center,
             child: SvgPicture.asset(
@@ -54,32 +55,48 @@ class IniciativesCard extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () => showDialog(
-                    context: context,
-                    barrierColor: Colors.black.withOpacity(0.2),
-                    builder: (_) =>
-                        CustomDialog(title: "Descripción", content: "xd")),
-                icon: Icon(
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  builder: (_) {
+                    return CustomDialog(
+                      title: initiative.iniNombre!,
+                      content: IniciativesPage(
+                        initiative: initiative,
+                      ),
+                    );
+                  },
+                ),
+                icon: const Icon(
                   Icons.info_outline,
                   color: Colors.black,
                 ),
               ),
               IconButton(
-                onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.star_border_outlined,
                   color: Colors.black,
+                ),
+                onPressed: () => showDialog(
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  builder: (_) {
+                    return const CustomDialog(
+                      title: "Calificación",
+                      content: RatingPage(),
+                    );
+                  },
                 ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.comment_outlined,
                   color: Colors.black,
                 ),
               ),
               IconButton(
                 onPressed: () {},
-                icon: Icon(
+                icon: const Icon(
                   Icons.contact_phone_outlined,
                   color: Colors.black,
                 ),

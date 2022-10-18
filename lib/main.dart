@@ -1,5 +1,5 @@
 import 'package:expose/backend/providers/auth_provider.dart';
-import 'package:expose/backend/providers/dashboard_provider.dart';
+import 'package:expose/backend/providers/initiatives_provider.dart';
 import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/backend/services/local_storage.dart';
@@ -46,7 +46,7 @@ class AppState extends StatelessWidget {
           lazy: false,
         ),
         ChangeNotifierProvider(
-          create: (_) => DashboardProvider(),
+          create: (_) => InitiativesProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider(

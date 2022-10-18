@@ -1,5 +1,4 @@
-import 'package:expose/backend/providers/dashboard_provider.dart';
-import 'package:expose/backend/services/navigation_service.dart';
+import 'package:expose/backend/providers/initiatives_provider.dart';
 import 'package:expose/frontend/shared/custom_button.dart';
 import 'package:expose/frontend/shared/iniciatives_card.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +11,7 @@ class IniciativesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dashboardProvider = Provider.of<DashboardProvider>(context);
+    final dashboardProvider = Provider.of<InitiativesProvider>(context);
 
     return SizedBox(
       height: double.infinity,
@@ -31,39 +30,26 @@ class IniciativesView extends StatelessWidget {
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(vertical: 10),
                 child: FutureBuilder(
-                  future: dashboardProvider.getIniciativasPreview(),
+                  future: dashboardProvider.getIniciativas(),
                   builder: (context, snapshot) {
-                    if (snapshot.hasData &&
-                        snapshot.data!.initiatives!.isNotEmpty) {
+                    if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                       return Wrap(
                         crossAxisAlignment: WrapCrossAlignment.start,
                         direction: Axis.horizontal,
                         children: [
-                          ...snapshot.data!.initiatives!.map(
+                          ...snapshot.data!.map(
                             (e) => IniciativesCard(
                               width: 400,
                               height: 125,
-                              title: e.iniNombre!,
-                              child: Text(
-                                e.iniDescripcion!,
-                              ),
-                              onPressed: () {
-                                final index =
-                                    snapshot.data!.initiatives!.indexOf(e) +
-                                        dashboardProvider.indexPreview +
-                                        1;
-                                NavigationService.navigateTo(
-                                    "/dashboard/$index");
-                              },
+                              initiative: e,
                             ),
                           ),
                         ],
                       );
                     }
-                    if (snapshot.hasData &&
-                        snapshot.data!.initiatives!.isEmpty) {
+                    if (snapshot.hasData && snapshot.data!.isEmpty) {
                       return Center(
                         child: SvgPicture.asset(
                           "empty.svg",

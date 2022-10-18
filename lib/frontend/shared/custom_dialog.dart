@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDialog extends StatelessWidget {
   final String title;
-  final String content;
+  final Widget content;
 
   const CustomDialog({Key? key, required this.title, required this.content})
       : super(key: key);
@@ -14,21 +15,18 @@ class CustomDialog extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Text(
           title,
-          style: const TextStyle(
-              fontSize: 40, fontWeight: FontWeight.bold, color: Colors.black),
+          style: GoogleFonts.roboto(fontSize: 40, fontWeight: FontWeight.bold),
         ),
       ),
       content: Container(
         alignment: Alignment.center,
         width: 700,
         height: 400,
-        child: Text(
-          content,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-          ),
-        ),
+        child: SingleChildScrollView(
+            child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: content,
+        )),
       ),
     );
   }
