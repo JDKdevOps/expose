@@ -1,15 +1,16 @@
 import 'package:expose/backend/classes/iniciativa.dart';
-import 'package:expose/backend/providers/initiatives_provider.dart';
-import 'package:expose/frontend/pages/rating_builder.dart';
+import 'package:expose/frontend/pages/comments_page.dart';
+import 'package:expose/frontend/pages/contact_page.dart';
+import 'package:expose/frontend/pages/rating_page.dart';
 import 'package:expose/frontend/shared/custom_dialog.dart';
-import 'package:expose/frontend/pages/iniciative_builder.dart';
+import 'package:expose/frontend/pages/iniciative_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 
 class IniciativesCard extends StatelessWidget {
   final Initiatives initiative;
+  final int initiativeId;
   final double? width;
   final double? height;
 
@@ -18,12 +19,11 @@ class IniciativesCard extends StatelessWidget {
     this.width,
     this.height,
     required this.initiative,
+    required this.initiativeId,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dashboardProvider = Provider.of<InitiativesProvider>(context);
-
     return Container(
       width: width,
       margin: const EdgeInsets.all(15),
@@ -80,25 +80,42 @@ class IniciativesCard extends StatelessWidget {
                   context: context,
                   barrierColor: Colors.black.withOpacity(0.2),
                   builder: (_) {
-                    return const CustomDialog(
-                      title: "Calificación",
-                      content: RatingPage(),
+                    return CustomDialog(
+                      content: RatingPage(initiative: initiative),
                     );
                   },
                 ),
               ),
               IconButton(
-                onPressed: () {},
                 icon: const Icon(
                   Icons.comment_outlined,
                   color: Colors.black,
                 ),
+                onPressed: () => showDialog(
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  builder: (_) {
+                    return CustomDialog(
+                      title: "Comentarios",
+                      content: CommentsPage(initiative: initiative),
+                    );
+                  },
+                ),
               ),
               IconButton(
-                onPressed: () {},
                 icon: const Icon(
                   Icons.contact_phone_outlined,
                   color: Colors.black,
+                ),
+                onPressed: () => showDialog(
+                  context: context,
+                  barrierColor: Colors.black.withOpacity(0.2),
+                  builder: (_) {
+                    return CustomDialog(
+                      title: "Formulario de Contacto",
+                      content: ContactPage(initiative: initiative),
+                    );
+                  },
                 ),
               ),
             ],

@@ -43,6 +43,9 @@ class IniciativesView extends StatelessWidget {
                             (e) => IniciativesCard(
                               width: 400,
                               height: 125,
+                              initiativeId: snapshot.data!.indexOf(e) +
+                                  dashboardProvider.indexPreview +
+                                  1,
                               initiative: e,
                             ),
                           ),

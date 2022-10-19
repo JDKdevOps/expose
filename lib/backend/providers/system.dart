@@ -11,4 +11,6 @@ class SystemData {
       firebaseFirestore.collection('userSesions');
   static CollectionReference userRating =
       firebaseFirestore.collection("Rating");
+  static CollectionReference userComments =
+      firebaseFirestore.collection("Comments");
 }

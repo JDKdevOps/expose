@@ -22,15 +22,17 @@ class Iniciativa {
 }
 
 class Initiatives {
+  int? idIniciativa;
   String? iniNombre;
   String? iniDescripcion;
-  int? iniCalificacionPromedio;
+  double? iniCalificacionPromedio;
   String? iniDiapositiva;
   String? iniVideo;
   String? gruNombre;
 
   Initiatives(
-      {this.iniNombre,
+      {this.idIniciativa,
+      this.iniNombre,
       this.iniDescripcion,
       this.iniCalificacionPromedio,
       this.iniDiapositiva,
@@ -38,6 +40,7 @@ class Initiatives {
       this.gruNombre});
 
   Initiatives.fromJson(Map<String, dynamic> json) {
+    idIniciativa = json['id_iniciativa'];
     iniNombre = json['ini_nombre'];
     iniDescripcion = json['ini_descripcion'];
     iniCalificacionPromedio = json['ini_calificacion_promedio'];
@@ -48,6 +51,7 @@ class Initiatives {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id_iniciativa'] = idIniciativa;
     data['ini_nombre'] = iniNombre;
     data['ini_descripcion'] = iniDescripcion;
     data['ini_calificacion_promedio'] = iniCalificacionPromedio;

@@ -4,7 +4,7 @@ import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/frontend/views/groups_view.dart';
 import 'package:expose/frontend/views/iniciatives_view.dart';
-import 'package:expose/frontend/pages/iniciative_builder.dart';
+import 'package:expose/frontend/pages/iniciative_page.dart';
 import 'package:expose/frontend/views/login_view.dart';
 import 'package:expose/frontend/views/register_view.dart';
 import 'package:fluro/fluro.dart';

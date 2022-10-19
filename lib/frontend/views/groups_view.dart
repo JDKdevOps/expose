@@ -6,8 +6,27 @@ class GroupsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text(SystemData.userData!.tipTipoUsuario!),
+    return SizedBox(
+      width: double.infinity,
+      height: double.infinity,
+      child: Row(
+        children: [
+          SizedBox(
+            width: 200,
+            child: SingleChildScrollView(
+              child: FutureBuilder(
+                builder: (context, snapshot) {
+                  return Text("xd");
+                },
+              ),
+            ),
+          ),
+          Divider(
+            color: Colors.black,
+            height: double.infinity,
+          )
+        ],
+      ),
     );
   }
 }
