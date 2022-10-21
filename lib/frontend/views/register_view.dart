@@ -1,3 +1,5 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js;
 import 'package:email_validator/email_validator.dart';
 import 'package:expose/backend/providers/auth_provider.dart';
 import 'package:expose/backend/router/router.dart';
@@ -31,6 +33,7 @@ class RegisterView extends StatelessWidget {
                 children: [
                   //Nombre
                   CustomInput(
+                      onChanged: (p0) => authProvider.regName = p0,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escriba su nombre';
@@ -41,8 +44,9 @@ class RegisterView extends StatelessWidget {
                       label: 'Nombre',
                       icon: Icons.account_box_outlined),
                   const SizedBox(height: 20),
-                  //Apellido
+                  //Apellido Paterno
                   CustomInput(
+                      onChanged: (p0) => authProvider.regApellidoPaterno = p0,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Escriba sus apellidos';
@@ -50,11 +54,25 @@ class RegisterView extends StatelessWidget {
                         return null;
                       },
                       hint: 'Doe',
-                      label: 'Apellidos',
+                      label: 'Apellido Paterno',
+                      icon: Icons.account_box_outlined),
+                  const SizedBox(height: 20),
+                  //Apellido Materno
+                  CustomInput(
+                      onChanged: (p0) => authProvider.regApellidoMaterno = p0,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Escriba sus apellidos';
+                        }
+                        return null;
+                      },
+                      hint: 'Dae',
+                      label: 'Apellido Materno',
                       icon: Icons.account_box_outlined),
                   const SizedBox(height: 20),
                   //Fecha de Nacimiento
                   CustomInput(
+                    onChanged: (p0) => authProvider.regFechaNacimiento = p0,
                     readOnly: true,
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -62,26 +80,14 @@ class RegisterView extends StatelessWidget {
                       }
                       return null;
                     },
-                    hint: 'DD-MM-YY',
+                    hint: 'YYYY-MM-DD',
                     label: 'Fecha de nacimiento',
                     icon: Icons.date_range_outlined,
-                    iconButton: IconButton(
-                      onPressed: () async {
-                        final test = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1900),
-                            lastDate: DateTime.now());
-                      },
-                      icon: const Icon(
-                        Icons.add_outlined,
-                        color: Colors.grey,
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 20),
                   //Correo
                   CustomInput(
+                      onChanged: (p0) => authProvider.regCorreo = p0,
                       validator: (value) {
                         if (!EmailValidator.validate(value ?? '')) {
                           return 'Email no válido';
@@ -93,6 +99,7 @@ class RegisterView extends StatelessWidget {
                       icon: Icons.mail_outline),
                   const SizedBox(height: 20),
                   CustomInput(
+                    onChanged: (p0) => authProvider.regPasswd = p0,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Ingrese su contraseña';
@@ -110,7 +117,19 @@ class RegisterView extends StatelessWidget {
                   const SizedBox(height: 20),
                   CustomButton(
                     text: 'Registrarse',
-                    onPressed: () {},
+                    onPressed: () {
+                      authProvider.register().then((value) {
+                        if (value) {
+                          js.context.callMethod("alert", [
+                            "Se ha registrado correctamente, ya puede ingresar al sistema"
+                          ]);
+                        } else {
+                          js.context.callMethod("alert", [
+                            "Hubo un error al registarse, verifica tu conexión a internet, estado del servicio, o si estás utilizando un correo duplicado"
+                          ]);
+                        }
+                      });
+                    },
                   ),
                   const SizedBox(height: 20),
                   LinkText(

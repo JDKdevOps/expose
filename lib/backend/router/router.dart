@@ -15,7 +15,6 @@ class SystemRouter {
   //Dashboard Router
   static String dashboard = '/dashboard';
   static String dashGroups = '/dashboard/groups';
-  static String dashboardGroupsId = '/dashboard/groups/:id';
   static String dashboardProfile = "/dashboard/profile";
   static String dashboardPrivacy = "/dashboard/privacy";
   static String dashboardLeaders = "/dashboard/leaders";

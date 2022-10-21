@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class InitiativesProvider extends ChangeNotifier {
   int _indexPreview = 0;
+  bool emptyContent = false;
   String findIniciative = "";
 
   String comment = "";
@@ -21,12 +22,12 @@ class InitiativesProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Initiatives>> getIniciativas() async {
+  Future<List<Initiative>> getIniciativas() async {
     var response = await http.get(
         Uri.parse("${SystemData.ipServer}/api/initiatives/page/$indexPreview"));
 
-    var list = Iniciativa.fromJson(jsonDecode(response.body)).initiatives;
-    return list ?? <Initiatives>[];
+    return InitiativesList.fromJson(jsonDecode(response.body)).initiatives ??
+        <Initiative>[];
   }
 
   Future<double> getRating(String id) async {

@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class RatingPage extends StatelessWidget {
-  final Initiatives initiative;
+  final Initiative initiative;
 
   const RatingPage({Key? key, required this.initiative}) : super(key: key);
 
@@ -22,21 +22,6 @@ class RatingPage extends StatelessWidget {
           return Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                initiative.iniCalificacionPromedio == 0
-                    ? "Se el primero en calificar"
-                    : "Calificación Promedio: ${initiative.iniCalificacionPromedio}",
-                style: GoogleFonts.roboto(
-                    fontSize: 80, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 40),
-              Text(
-                "Mi calificación: $myRating",
-                style: GoogleFonts.roboto(
-                    fontSize: 30, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(height: 20),
               RatingBar.builder(
                 initialRating: myRating!,
                 minRating: 0,
@@ -44,13 +29,30 @@ class RatingPage extends StatelessWidget {
                 direction: Axis.horizontal,
                 allowHalfRating: true,
                 itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                itemBuilder: (context, index) =>
-                    const Icon(Icons.star_border_outlined),
+                itemBuilder: (context, index) => const Icon(
+                  Icons.star_border_outlined,
+                  size: 50,
+                ),
                 onRatingUpdate: (value) {
                   initiativesProvider.updateRating(
                       initiative.idIniciativa!, value);
                 },
-              )
+              ),
+              const SizedBox(height: 20),
+              Text(
+                "Mi calificación: $myRating",
+                style: GoogleFonts.roboto(
+                    fontSize: 60, fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 40),
+              Text(
+                initiative.iniCalificacionPromedio == 0
+                    ? "Se el primero en calificar"
+                    : "Calificación Promedio: ${initiative.iniCalificacionPromedio}",
+                style: GoogleFonts.roboto(
+                    fontSize: 20, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
             ],
           );
         }

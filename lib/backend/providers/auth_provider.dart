@@ -16,6 +16,13 @@ class AuthProvider extends ChangeNotifier {
   String email = '';
   String password = '';
 
+  String regName = "";
+  String regApellidoMaterno = "";
+  String regApellidoPaterno = "";
+  String regFechaNacimiento = "";
+  String regCorreo = "";
+  String regPasswd = "";
+
   AuthProvider() {
     isAuthenticated();
   }
@@ -114,6 +121,23 @@ class AuthProvider extends ChangeNotifier {
     }
 
     return false;
+  }
+
+  Future<bool> register() async {
+    final response = await http.post(
+      Uri.parse("${SystemData.ipServer}/api/users/add"),
+      headers: {"content-type": "application/json; charset=utf-8"},
+      body: jsonEncode({
+        "nombres": regName,
+        "apellido_paterno": regApellidoPaterno,
+        "apellido_materno": regApellidoMaterno,
+        "fecha_nacimiento": regFechaNacimiento,
+        "correo": regCorreo,
+        "contrasenia": regPasswd
+      }),
+    );
+
+    return jsonDecode(response.body)["result"] ?? false;
   }
 }
 

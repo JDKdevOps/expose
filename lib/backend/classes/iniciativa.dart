@@ -1,13 +1,13 @@
-class Iniciativa {
-  List<Initiatives>? initiatives;
+class InitiativesList {
+  List<Initiative>? initiatives;
 
-  Iniciativa({this.initiatives});
+  InitiativesList({this.initiatives});
 
-  Iniciativa.fromJson(Map<String, dynamic> json) {
+  InitiativesList.fromJson(Map<String, dynamic> json) {
     if (json['initiatives'] != null) {
-      initiatives = <Initiatives>[];
+      initiatives = <Initiative>[];
       json['initiatives'].forEach((v) {
-        initiatives!.add(Initiatives.fromJson(v));
+        initiatives!.add(Initiative.fromJson(v));
       });
     }
   }
@@ -21,7 +21,7 @@ class Iniciativa {
   }
 }
 
-class Initiatives {
+class Initiative {
   int? idIniciativa;
   String? iniNombre;
   String? iniDescripcion;
@@ -30,7 +30,7 @@ class Initiatives {
   String? iniVideo;
   String? gruNombre;
 
-  Initiatives(
+  Initiative(
       {this.idIniciativa,
       this.iniNombre,
       this.iniDescripcion,
@@ -39,7 +39,7 @@ class Initiatives {
       this.iniVideo,
       this.gruNombre});
 
-  Initiatives.fromJson(Map<String, dynamic> json) {
+  Initiative.fromJson(Map<String, dynamic> json) {
     idIniciativa = json['id_iniciativa'];
     iniNombre = json['ini_nombre'];
     iniDescripcion = json['ini_descripcion'];

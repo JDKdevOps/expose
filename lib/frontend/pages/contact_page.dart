@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ContactPage extends StatelessWidget {
-  final Initiatives initiative;
+  final Initiative initiative;
 
   const ContactPage({Key? key, required this.initiative}) : super(key: key);
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomInput extends StatelessWidget {
+  final TextEditingController? controller;
   final String hint;
   final String label;
   final bool? obscureText;
@@ -26,12 +27,14 @@ class CustomInput extends StatelessWidget {
       this.maxLength,
       this.inputFormatter,
       this.validator,
-      this.onChanged})
+      this.onChanged,
+      this.controller})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       readOnly: readOnly ?? false,
       maxLength: maxLength,
       initialValue: initialValue,

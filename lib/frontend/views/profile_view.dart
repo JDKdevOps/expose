@@ -1,17 +1,22 @@
-import 'package:expose/backend/providers/initiatives_provider.dart';
+import 'package:expose/backend/classes/groups.dart';
+import 'package:expose/backend/classes/iniciativa.dart';
+import 'package:expose/backend/providers/groups_provider.dart';
+import 'package:expose/backend/providers/system.dart';
 import 'package:expose/frontend/shared/custom_button.dart';
-import 'package:expose/frontend/shared/iniciatives_card.dart';
+import 'package:expose/frontend/shared/groups_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class IniciativesView extends StatelessWidget {
-  const IniciativesView({Key? key}) : super(key: key);
+import '../shared/iniciatives_card.dart';
+
+class GroupsView extends StatelessWidget {
+  const GroupsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final dashboardProvider = Provider.of<InitiativesProvider>(context);
+    final groupsProvider = Provider.of<GroupsProvider>(context);
 
     return SizedBox(
       height: double.infinity,
@@ -25,7 +30,7 @@ class IniciativesView extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  "Iniciativas:",
+                  "Grupos:",
                   style: GoogleFonts.montserrat(
                       fontSize: 50, fontWeight: FontWeight.bold),
                 ),
@@ -35,21 +40,8 @@ class IniciativesView extends StatelessWidget {
                 children: [
                   const SizedBox(width: 15),
                   CustomButton(
-                    text: "Atrás",
-                    onPressed: () {
-                      if (dashboardProvider.indexPreview != 0) {
-                        return dashboardProvider.indexPreview -= 5;
-                      }
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                  CustomButton(
-                    text: "Siguiente",
-                    onPressed: () {
-                      if (!dashboardProvider.emptyContent) {
-                        return dashboardProvider.indexPreview += 5;
-                      }
-                    },
+                    text: "Crear Grupo",
+                    onPressed: () {},
                   ),
                 ],
               ),
@@ -58,26 +50,24 @@ class IniciativesView extends StatelessWidget {
           Expanded(
             child: Center(
               child: FutureBuilder(
-                future: dashboardProvider.getIniciativas(),
+                future: groupsProvider.getGroups(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-                    dashboardProvider.emptyContent = false;
                     return Wrap(
                       crossAxisAlignment: WrapCrossAlignment.start,
                       direction: Axis.horizontal,
                       children: [
                         ...snapshot.data!.map(
-                          (e) => IniciativesCard(
+                          (e) => GroupsCard(
+                            group: e,
                             width: 400,
                             height: 125,
-                            initiative: e,
                           ),
                         ),
                       ],
                     );
                   }
                   if (snapshot.hasData && snapshot.data!.isEmpty) {
-                    dashboardProvider.emptyContent = true;
                     return Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -89,7 +79,7 @@ class IniciativesView extends StatelessWidget {
                         ),
                         const SizedBox(height: 50),
                         Text(
-                          "Más ideas vienen en camino",
+                          "Tu emprendimiento empieza aquí",
                           style: GoogleFonts.montserrat(
                               fontSize: 35, fontWeight: FontWeight.bold),
                         ),

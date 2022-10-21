@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pod_player/pod_player.dart';
 
 class IniciativesPage extends StatefulWidget {
-  final Initiatives initiative;
+  final Initiative initiative;
 
   const IniciativesPage({super.key, required this.initiative});
 

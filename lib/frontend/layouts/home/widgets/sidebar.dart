@@ -31,7 +31,7 @@ class Sidebar extends StatelessWidget {
           const TextSeparator(text: 'Inicio'),
           MenuItems(
             text: 'Iniciativas',
-            icon: Icons.compass_calibration_outlined,
+            icon: Icons.handshake_outlined,
             onPressed: () => navigateTo(SystemRouter.dashboard),
             isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
           ),
@@ -45,15 +45,17 @@ class Sidebar extends StatelessWidget {
           const TextSeparator(text: 'Perfil'),
           MenuItems(
             text: 'Editar Perfil',
-            icon: Icons.show_chart_outlined,
+            icon: Icons.person_outline,
             onPressed: () {},
-            isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+            isActive:
+                sideMenuProvider.currentPage == SystemRouter.dashboardProfile,
           ),
           MenuItems(
             text: 'Privacidad',
-            icon: Icons.layers_outlined,
+            icon: Icons.shield_outlined,
             onPressed: () {},
-            isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+            isActive:
+                sideMenuProvider.currentPage == SystemRouter.dashboardPrivacy,
           ),
           if (SystemData.userData!.tipTipoUsuario == 'Coordinador') ...{
             const SizedBox(height: 30),
@@ -62,19 +64,22 @@ class Sidebar extends StatelessWidget {
               text: 'Líderes',
               icon: Icons.list_alt_outlined,
               onPressed: () => navigateTo(SystemRouter.dashboard),
-              isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+              isActive:
+                  sideMenuProvider.currentPage == SystemRouter.dashboardLeaders,
             ),
             MenuItems(
               text: 'Propuestas',
               icon: Icons.note_add_outlined,
               onPressed: () {},
-              isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+              isActive: sideMenuProvider.currentPage ==
+                  SystemRouter.dashboardProposals,
             ),
             MenuItems(
               text: 'Comentarios',
               icon: Icons.mark_email_read_outlined,
               onPressed: () {},
-              isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+              isActive: sideMenuProvider.currentPage ==
+                  SystemRouter.dashboardComments,
             ),
           },
           if (SystemData.userData!.tipTipoUsuario == 'Administrador') ...{
@@ -84,7 +89,8 @@ class Sidebar extends StatelessWidget {
               text: 'Coordinadores',
               icon: Icons.post_add_outlined,
               onPressed: () => navigateTo(SystemRouter.dashboard),
-              isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+              isActive: sideMenuProvider.currentPage ==
+                  SystemRouter.dashboardCoordinators,
             ),
           },
           const SizedBox(height: 50),
@@ -93,7 +99,8 @@ class Sidebar extends StatelessWidget {
             text: 'Cerrar Sesión',
             icon: Icons.exit_to_app_outlined,
             onPressed: () {},
-            isActive: sideMenuProvider.currentPage == SystemRouter.dashboard,
+            isActive:
+                sideMenuProvider.currentPage == SystemRouter.dashboardLogout,
           ),
         ],
       ),

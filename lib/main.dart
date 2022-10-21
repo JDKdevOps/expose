@@ -1,4 +1,5 @@
 import 'package:expose/backend/providers/auth_provider.dart';
+import 'package:expose/backend/providers/groups_provider.dart';
 import 'package:expose/backend/providers/initiatives_provider.dart';
 import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/router/router.dart';
@@ -47,6 +48,10 @@ class AppState extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => InitiativesProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => GroupsProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider(

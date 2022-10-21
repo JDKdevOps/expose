@@ -1,23 +1,24 @@
-import 'package:expose/backend/classes/iniciativa.dart';
-import 'package:expose/frontend/pages/comments_page.dart';
-import 'package:expose/frontend/pages/contact_page.dart';
-import 'package:expose/frontend/pages/rating_page.dart';
+import 'package:expose/backend/classes/groups.dart';
+import 'package:expose/backend/providers/system.dart';
+import 'package:expose/frontend/pages/create_initiative_page.dart';
+import 'package:expose/frontend/pages/inbox_page.dart';
+import 'package:expose/frontend/pages/members_page.dart';
+import 'package:expose/frontend/pages/multi_initiatives_page.dart';
 import 'package:expose/frontend/shared/custom_dialog.dart';
-import 'package:expose/frontend/pages/initiative_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class IniciativesCard extends StatelessWidget {
-  final Initiative initiative;
+class GroupsCard extends StatelessWidget {
+  final Group group;
   final double? width;
   final double? height;
 
-  const IniciativesCard({
+  const GroupsCard({
     Key? key,
     this.width,
     this.height,
-    required this.initiative,
+    required this.group,
   }) : super(key: key);
 
   @override
@@ -33,7 +34,7 @@ class IniciativesCard extends StatelessWidget {
           FittedBox(
             fit: BoxFit.contain,
             child: Text(
-              initiative.iniNombre!,
+              group.gruNombre!,
               style:
                   GoogleFonts.roboto(fontSize: 25, fontWeight: FontWeight.bold),
             ),
@@ -42,7 +43,7 @@ class IniciativesCard extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: SvgPicture.asset(
-              "initiative.svg",
+              "group.svg",
               height: height,
               fit: BoxFit.cover,
             ),
@@ -51,16 +52,32 @@ class IniciativesCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              if (group.lider == SystemData.studentData!.idEstudiante) ...{
+                IconButton(
+                  icon: const Icon(
+                    Icons.push_pin_outlined,
+                    color: Colors.black,
+                  ),
+                  onPressed: () => showDialog(
+                    context: context,
+                    barrierColor: Colors.black.withOpacity(0.2),
+                    builder: (_) {
+                      return CustomDialog(
+                        title: "Nueva Iniciativa",
+                        content: CreateInitiativePage(group: group),
+                      );
+                    },
+                  ),
+                ),
+              },
               IconButton(
                 onPressed: () => showDialog(
                   context: context,
                   barrierColor: Colors.black.withOpacity(0.2),
                   builder: (_) {
                     return CustomDialog(
-                      title: initiative.iniNombre!,
-                      content: IniciativesPage(
-                        initiative: initiative,
-                      ),
+                      title: "Nuestras iniciativas",
+                      content: MultiInitiativesPage(group: group),
                     );
                   },
                 ),
@@ -71,7 +88,7 @@ class IniciativesCard extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.star_border_outlined,
+                  Icons.group_outlined,
                   color: Colors.black,
                 ),
                 onPressed: () => showDialog(
@@ -79,14 +96,15 @@ class IniciativesCard extends StatelessWidget {
                   barrierColor: Colors.black.withOpacity(0.2),
                   builder: (_) {
                     return CustomDialog(
-                      content: RatingPage(initiative: initiative),
+                      title: "Miembros",
+                      content: MembersPage(group: group),
                     );
                   },
                 ),
               ),
               IconButton(
                 icon: const Icon(
-                  Icons.comment_outlined,
+                  Icons.mail_outline,
                   color: Colors.black,
                 ),
                 onPressed: () => showDialog(
@@ -94,24 +112,8 @@ class IniciativesCard extends StatelessWidget {
                   barrierColor: Colors.black.withOpacity(0.2),
                   builder: (_) {
                     return CustomDialog(
-                      title: "Comentarios",
-                      content: CommentsPage(initiative: initiative),
-                    );
-                  },
-                ),
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.contact_phone_outlined,
-                  color: Colors.black,
-                ),
-                onPressed: () => showDialog(
-                  context: context,
-                  barrierColor: Colors.black.withOpacity(0.2),
-                  builder: (_) {
-                    return CustomDialog(
-                      title: "Formulario de Contacto",
-                      content: ContactPage(initiative: initiative),
+                      title: "Buzón de contacto",
+                      content: InboxPage(group: group),
                     );
                   },
                 ),

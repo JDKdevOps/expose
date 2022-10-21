@@ -22,14 +22,10 @@ class CustomDialog extends StatelessWidget {
             )
           : null,
       content: Container(
-        alignment: Alignment.center,
+        alignment: Alignment.topCenter,
         width: 700,
         height: 400,
-        child: SingleChildScrollView(
-            child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: content,
-        )),
+        child: content,
       ),
     );
   }
