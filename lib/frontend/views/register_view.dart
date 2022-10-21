@@ -73,7 +73,6 @@ class RegisterView extends StatelessWidget {
                   //Fecha de Nacimiento
                   CustomInput(
                     onChanged: (p0) => authProvider.regFechaNacimiento = p0,
-                    readOnly: true,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Seleccione una Fecha';
@@ -115,6 +114,12 @@ class RegisterView extends StatelessWidget {
                     icon: Icons.lock_outline,
                   ),
                   const SizedBox(height: 20),
+                  CheckboxListTile(
+                      title: Text(
+                          "He leído y acepto las políticas de privacidad de este sitio"),
+                      value: false,
+                      onChanged: (_) {}),
+                  const SizedBox(height: 20),
                   CustomButton(
                     text: 'Registrarse',
                     onPressed: () {
@@ -123,6 +128,7 @@ class RegisterView extends StatelessWidget {
                           js.context.callMethod("alert", [
                             "Se ha registrado correctamente, ya puede ingresar al sistema"
                           ]);
+                          NavigationService.navigateTo(SystemRouter.login);
                         } else {
                           js.context.callMethod("alert", [
                             "Hubo un error al registarse, verifica tu conexión a internet, estado del servicio, o si estás utilizando un correo duplicado"

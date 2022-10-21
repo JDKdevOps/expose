@@ -133,7 +133,8 @@ class AuthProvider extends ChangeNotifier {
         "apellido_materno": regApellidoMaterno,
         "fecha_nacimiento": regFechaNacimiento,
         "correo": regCorreo,
-        "contrasenia": regPasswd
+        "contrasenia": regPasswd,
+        "tipo_usuario": 1
       }),
     );
 
