@@ -33,5 +33,9 @@ class SystemRouter {
       handler: RouterHandlers.root,
       transitionType: TransitionType.none,
     );
+
+    //Login
+    router.define(login,
+        handler: RouterHandlers.login, transitionType: TransitionType.none);
   }
 }

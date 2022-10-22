@@ -1,5 +1,6 @@
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/router/navigation_service.dart';
+import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -24,9 +25,12 @@ class NotFoundPage extends StatelessWidget {
             ),
             CustomButton(
               text: "Volver al inicio",
-              onPressed: () => NavigationRouter.replaceTo(
-                SystemRouter.root,
-              ),
+              onPressed: () {
+                RouterBuilderManager.routerPath = RouterPath.root;
+                NavigationRouter.replaceTo(
+                  SystemRouter.root,
+                );
+              },
             ),
           ],
         ),

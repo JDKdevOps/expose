@@ -3,6 +3,6 @@ class RouterBuilderManager {
   static RouterStatus routerStatus = RouterStatus.notAuth;
 }
 
-enum RouterPath {root, auth, dash }
+enum RouterPath { notFound, root, login, register, dash }
 
 enum RouterStatus { auth, notAuth }
