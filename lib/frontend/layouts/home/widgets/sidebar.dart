@@ -1,6 +1,7 @@
 import 'package:expose/backend/providers/sidemenu_provider.dart';
 import 'package:expose/backend/providers/system.dart';
 import 'package:expose/backend/router/router.dart';
+import 'package:expose/backend/services/local_storage.dart';
 import 'package:expose/backend/services/navigation_service.dart';
 import 'package:expose/frontend/layouts/home/widgets/logo.dart';
 import 'package:expose/frontend/layouts/home/widgets/menu_item.dart';
@@ -46,49 +47,57 @@ class Sidebar extends StatelessWidget {
           MenuItems(
             text: 'Editar Perfil',
             icon: Icons.person_outline,
-            onPressed: () {},
+            onPressed: () => navigateTo(SystemRouter.dashboardProfile),
             isActive:
                 sideMenuProvider.currentPage == SystemRouter.dashboardProfile,
           ),
           MenuItems(
             text: 'Privacidad',
             icon: Icons.shield_outlined,
-            onPressed: () {},
+            onPressed: () => navigateTo(SystemRouter.dashboardPrivacy),
             isActive:
                 sideMenuProvider.currentPage == SystemRouter.dashboardPrivacy,
           ),
-          if (SystemData.userData!.tipTipoUsuario == 'Coordinador') ...{
+          if (SystemData.userData!.tipTipoUsuario == 'Coordinador' ||
+              SystemData.userData!.tipTipoUsuario == "administrador") ...{
             const SizedBox(height: 30),
             const TextSeparator(text: 'Coordinador'),
             MenuItems(
+              text: 'Usuarios',
+              icon: Icons.groups_outlined,
+              onPressed: () => navigateTo(SystemRouter.dashboardUsers),
+              isActive:
+                  sideMenuProvider.currentPage == SystemRouter.dashboardUsers,
+            ),
+            MenuItems(
               text: 'Líderes',
               icon: Icons.list_alt_outlined,
-              onPressed: () => navigateTo(SystemRouter.dashboard),
+              onPressed: () => navigateTo(SystemRouter.dashboardLeaders),
               isActive:
                   sideMenuProvider.currentPage == SystemRouter.dashboardLeaders,
             ),
             MenuItems(
               text: 'Propuestas',
               icon: Icons.note_add_outlined,
-              onPressed: () {},
+              onPressed: () => navigateTo(SystemRouter.dashboardProposals),
               isActive: sideMenuProvider.currentPage ==
                   SystemRouter.dashboardProposals,
             ),
             MenuItems(
               text: 'Comentarios',
               icon: Icons.mark_email_read_outlined,
-              onPressed: () {},
+              onPressed: () => navigateTo(SystemRouter.dashboardComments),
               isActive: sideMenuProvider.currentPage ==
                   SystemRouter.dashboardComments,
             ),
           },
-          if (SystemData.userData!.tipTipoUsuario == 'Administrador') ...{
+          if (SystemData.userData!.tipTipoUsuario == 'administrador') ...{
             const SizedBox(height: 50),
             const TextSeparator(text: 'Administrador'),
             MenuItems(
               text: 'Coordinadores',
               icon: Icons.post_add_outlined,
-              onPressed: () => navigateTo(SystemRouter.dashboard),
+              onPressed: () => navigateTo(SystemRouter.dashboardCoordinators),
               isActive: sideMenuProvider.currentPage ==
                   SystemRouter.dashboardCoordinators,
             ),
@@ -98,7 +107,10 @@ class Sidebar extends StatelessWidget {
           MenuItems(
             text: 'Cerrar Sesión',
             icon: Icons.exit_to_app_outlined,
-            onPressed: () {},
+            onPressed: () {
+              LocalStorage.localDB.setString('token', "");
+              NavigationService.navigateTo(SystemRouter.login);
+            },
             isActive:
                 sideMenuProvider.currentPage == SystemRouter.dashboardLogout,
           ),

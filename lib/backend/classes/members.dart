@@ -7,15 +7,16 @@ class MiembrosList {
     if (json['miembrosGrupo'] != null) {
       miembrosGrupo = <Miembro>[];
       json['miembrosGrupo'].forEach((v) {
-        miembrosGrupo!.add(Miembro.fromJson(v));
+        miembrosGrupo!.add(new Miembro.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    if (miembrosGrupo != null) {
-      data['miembrosGrupo'] = miembrosGrupo!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.miembrosGrupo != null) {
+      data['miembrosGrupo'] =
+          this.miembrosGrupo!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -23,7 +24,7 @@ class MiembrosList {
 
 class Miembro {
   int? idEstudiante;
-  int? estPromedioPonderado;
+  double? estPromedioPonderado;
   int? estEsLider;
   String? peNombres;
   String? peApellidoPaterno;
@@ -47,13 +48,13 @@ class Miembro {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['id_estudiante'] = idEstudiante;
-    data['est_promedio_ponderado'] = estPromedioPonderado;
-    data['est_es_lider'] = estEsLider;
-    data['pe_nombres'] = peNombres;
-    data['pe_apellido_paterno'] = peApellidoPaterno;
-    data['pe_apellido_materno'] = peApellidoMaterno;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id_estudiante'] = this.idEstudiante;
+    data['est_promedio_ponderado'] = this.estPromedioPonderado;
+    data['est_es_lider'] = this.estEsLider;
+    data['pe_nombres'] = this.peNombres;
+    data['pe_apellido_paterno'] = this.peApellidoPaterno;
+    data['pe_apellido_materno'] = this.peApellidoMaterno;
     return data;
   }
 }

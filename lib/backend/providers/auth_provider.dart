@@ -123,7 +123,7 @@ class AuthProvider extends ChangeNotifier {
     return false;
   }
 
-  Future<bool> register() async {
+  Future<bool> register(int? customUserType) async {
     final response = await http.post(
       Uri.parse("${SystemData.ipServer}/api/users/add"),
       headers: {"content-type": "application/json; charset=utf-8"},
@@ -134,10 +134,10 @@ class AuthProvider extends ChangeNotifier {
         "fecha_nacimiento": regFechaNacimiento,
         "correo": regCorreo,
         "contrasenia": regPasswd,
-        "tipo_usuario": 1
+        "tipo_usuario": customUserType ?? 1
       }),
     );
-
+    notifyListeners();
     return jsonDecode(response.body)["result"] ?? false;
   }
 }

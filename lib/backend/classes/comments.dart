@@ -4,11 +4,13 @@ class Comments {
   String? initiativeId;
   String? name;
   String? timestamp;
+  String? id;
 
   Comments(
       {this.content, this.email, this.initiativeId, this.name, this.timestamp});
 
   Comments.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
     content = json['content'];
     email = json['email'];
     initiativeId = json['initiativeId'];
@@ -18,6 +20,7 @@ class Comments {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
     data['content'] = content;
     data['email'] = email;
     data['initiativeId'] = initiativeId;

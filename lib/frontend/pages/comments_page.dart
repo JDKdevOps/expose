@@ -1,3 +1,5 @@
+// ignore: avoid_web_libraries_in_flutter
+import 'dart:js' as js;
 import 'package:expose/backend/classes/iniciativa.dart';
 import 'package:expose/backend/providers/initiatives_provider.dart';
 import 'package:expose/backend/providers/system.dart';
@@ -81,6 +83,25 @@ class CommentsPage extends StatelessWidget {
                           padding: const EdgeInsets.all(5),
                           child: Text(data.timestamp!),
                         ),
+                        trailing: SystemData.userData!.tipTipoUsuario ==
+                                    "Coordinador" ||
+                                SystemData.userData!.tipTipoUsuario ==
+                                    "administrador"
+                            ? IconButton(
+                                onPressed: () {
+                                  initiativesProvider
+                                      .removeComment(data.id!)
+                                      .then((_) {
+                                    js.context.callMethod("alert", [
+                                      "El comentario ha sido removido exitosamente"
+                                    ]);
+                                  });
+                                },
+                                icon: Icon(
+                                  Icons.remove_circle_outline,
+                                  color: Colors.red[300],
+                                ))
+                            : null,
                       ),
                     );
                   },

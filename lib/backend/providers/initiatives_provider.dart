@@ -95,6 +95,7 @@ class InitiativesProvider extends ChangeNotifier {
         "email": e["email"],
         "name": e["name"],
         "initiativeId": e["initiativeId"],
+        "id": e.id
       };
 
       list.add(Comments.fromJson(json));
@@ -134,5 +135,10 @@ class InitiativesProvider extends ChangeNotifier {
         Uri.parse("${SystemData.ipServer}/api/initiatives/message/add"),
         headers: {"content-type": "application/json; charset=utf-8"},
         body: body);
+  }
+
+  Future<void> removeComment(String id) async {
+    await SystemData.userComments.doc(id).delete();
+    notifyListeners();
   }
 }

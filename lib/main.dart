@@ -1,7 +1,10 @@
 import 'package:expose/backend/providers/auth_provider.dart';
 import 'package:expose/backend/providers/groups_provider.dart';
 import 'package:expose/backend/providers/initiatives_provider.dart';
+import 'package:expose/backend/providers/leaders_provider.dart';
+import 'package:expose/backend/providers/proposals_provider.dart';
 import 'package:expose/backend/providers/sidemenu_provider.dart';
+import 'package:expose/backend/providers/users_provider.dart';
 import 'package:expose/backend/router/router.dart';
 import 'package:expose/backend/services/local_storage.dart';
 import 'package:expose/backend/services/navigation_service.dart';
@@ -52,6 +55,18 @@ class AppState extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => GroupsProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UsersProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => LeadersProvider(),
+          lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => ProposalsProvider(),
           lazy: false,
         ),
         ChangeNotifierProvider(

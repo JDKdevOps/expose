@@ -11,7 +11,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class RegisterView extends StatelessWidget {
-  const RegisterView({Key? key}) : super(key: key);
+  final int? customUserType;
+
+  const RegisterView({Key? key, this.customUserType}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,12 +125,14 @@ class RegisterView extends StatelessWidget {
                   CustomButton(
                     text: 'Registrarse',
                     onPressed: () {
-                      authProvider.register().then((value) {
+                      authProvider.register(customUserType).then((value) {
                         if (value) {
                           js.context.callMethod("alert", [
                             "Se ha registrado correctamente, ya puede ingresar al sistema"
                           ]);
-                          NavigationService.navigateTo(SystemRouter.login);
+                          if (customUserType == null) {
+                            NavigationService.navigateTo(SystemRouter.login);
+                          }
                         } else {
                           js.context.callMethod("alert", [
                             "Hubo un error al registarse, verifica tu conexión a internet, estado del servicio, o si estás utilizando un correo duplicado"

@@ -64,6 +64,7 @@ class MembersPage extends StatelessWidget {
             future: groupsProvider.getMembers(group.idGrupo!),
             builder: (context, snapshot) {
               if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                groupsProvider.miembros = snapshot.data!;
                 return ListView.builder(
                   itemCount: snapshot.data!.length,
                   itemBuilder: (context, index) {
@@ -98,8 +99,10 @@ class MembersPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        trailing: group.lider !=
-                                SystemData.studentData!.idEstudiante
+                        trailing: group.lider ==
+                                    SystemData.studentData!.idEstudiante &&
+                                data.idEstudiante! !=
+                                    SystemData.studentData!.idEstudiante
                             ? IconButton(
                                 onPressed: () {
                                   groupsProvider

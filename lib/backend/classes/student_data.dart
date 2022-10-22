@@ -23,7 +23,7 @@ class StudentData {
 
 class SingleStudent {
   int? idEstudiante;
-  int? estPromedioPonderado;
+  double? estPromedioPonderado;
   int? estEsLider;
   String? facNombreFacultad;
   int? semNumeroSemestre;

@@ -2,6 +2,7 @@ import 'package:expose/backend/classes/iniciativa.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pod_player/pod_player.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class IniciativesPage extends StatefulWidget {
   final Initiative initiative;
@@ -31,35 +32,44 @@ class _IniciativesPageState extends State<IniciativesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: PodVideoPlayer(controller: controller),
-        ),
-        const SizedBox(height: 15),
-        Text(
-          "Descripción",
-          style: GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          widget.initiative.iniDescripcion!,
-          style:
-              GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.normal),
-        ),
-        const SizedBox(height: 15),
-        Text(
-          "Link de Presentación",
-          style: GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold),
-        ),
-        Text(
-          widget.initiative.iniDiapositiva!,
-          style:
-              GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.normal),
-        ),
-        const SizedBox(height: 15),
-      ],
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: PodVideoPlayer(controller: controller),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            "Descripción",
+            style:
+                GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          Text(
+            widget.initiative.iniDescripcion!,
+            style:
+                GoogleFonts.roboto(fontSize: 20, fontWeight: FontWeight.normal),
+          ),
+          const SizedBox(height: 15),
+          Text(
+            "Link de Presentación",
+            style:
+                GoogleFonts.roboto(fontSize: 30, fontWeight: FontWeight.bold),
+          ),
+          InkWell(
+            child: Text(
+              "Link de diapositivas: Mi Asombrosa presentación",
+              style: GoogleFonts.roboto(
+                  fontSize: 20, fontWeight: FontWeight.normal),
+            ),
+            onTap: () => launchUrl(Uri.parse(
+              widget.initiative.iniDiapositiva!,
+            )),
+          ),
+          const SizedBox(height: 15),
+        ],
+      ),
     );
   }
 }
