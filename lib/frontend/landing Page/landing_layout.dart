@@ -1,6 +1,10 @@
 import 'package:expose_master/backend/router/navigation_service.dart';
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/router/router_manager.dart';
+import 'package:expose_master/frontend/Footer/license.dart';
+import 'package:expose_master/frontend/Footer/privacy_policy_page.dart';
+import 'package:expose_master/frontend/Footer/terms_and_condition_page.dart';
+import 'package:expose_master/frontend/shared/custom_dialog.dart';
 import 'package:expose_master/frontend/shared/link_text.dart';
 import 'package:flutter/material.dart';
 
@@ -61,14 +65,35 @@ class _Footer extends StatelessWidget {
     return Wrap(
       alignment: WrapAlignment.center,
       children: [
-        const LinkText(
-          text: 'Política de Privacidad',
+        LinkText(
+          text: 'Políticas de Privacidad',
+          onPressed: () => showDialog(
+            context: NavigationRouter.navigatorKey.currentContext!,
+            builder: (_) => const CustomDialog(
+              title: 'Políticas de Privacidad',
+              content: PrivacyPolicyPage(),
+            ),
+          ),
         ),
-        const LinkText(
+        LinkText(
           text: 'Términos y Condiciones',
+          onPressed: () => showDialog(
+            context: NavigationRouter.navigatorKey.currentContext!,
+            builder: (_) => const CustomDialog(
+              title: 'Términos y Condiciones',
+              content: TermsAndConditionPage(),
+            ),
+          ),
         ),
-        const LinkText(
+        LinkText(
           text: 'Licenciamiento',
+          onPressed: () => showDialog(
+            context: NavigationRouter.navigatorKey.currentContext!,
+            builder: (_) => const CustomDialog(
+              title: 'Términos y Condiciones',
+              content: LicensesPage(),
+            ),
+          ),
         ),
         const LinkText(
           text: 'Centro de ayuda',

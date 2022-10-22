@@ -48,7 +48,7 @@ class ExposeApp extends StatelessWidget {
       initialRoute: SystemRouter.root,
       onGenerateRoute: (settings) => SystemRouter.router.generator(settings),
       navigatorKey: NavigationRouter.navigatorKey,
-      builder: (context, child) {
+      builder: (_, child) {
         if (RouterBuilderManager.routerStatus == RouterStatus.auth) {
           return DashLayout(widget: child!);
         }
