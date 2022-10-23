@@ -2,7 +2,6 @@ import 'package:expose_master/backend/router/navigation_service.dart';
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
-import 'package:expose_master/frontend/shared/custom_dialog.dart';
 import 'package:flutter/material.dart';
 
 class LandingPage extends StatelessWidget {

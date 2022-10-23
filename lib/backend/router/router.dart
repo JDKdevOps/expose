@@ -6,6 +6,7 @@ class SystemRouter {
 
   //Root Router
   static String root = '/';
+  static String help = "/help";
 
   //Auth Router
   static String login = '/auth/login';
@@ -28,11 +29,10 @@ class SystemRouter {
     router.notFoundHandler = RouterHandlers.errorPage;
 
     //RootApp
-    router.define(
-      root,
-      handler: RouterHandlers.root,
-      transitionType: TransitionType.none,
-    );
+    router.define(root,
+        handler: RouterHandlers.root, transitionType: TransitionType.none);
+    router.define(help,
+        handler: RouterHandlers.help, transitionType: TransitionType.none);
 
     //Login
     router.define(login,

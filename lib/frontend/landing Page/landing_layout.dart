@@ -1,9 +1,9 @@
 import 'package:expose_master/backend/router/navigation_service.dart';
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/router/router_manager.dart';
-import 'package:expose_master/frontend/Footer/license.dart';
-import 'package:expose_master/frontend/Footer/privacy_policy_page.dart';
-import 'package:expose_master/frontend/Footer/terms_and_condition_page.dart';
+import 'package:expose_master/frontend/Informacion%20Adicional/license_page.dart';
+import 'package:expose_master/frontend/Informacion%20Adicional/privacy_policy_page.dart';
+import 'package:expose_master/frontend/Informacion%20Adicional/terms_and_condition_page.dart';
 import 'package:expose_master/frontend/shared/custom_dialog.dart';
 import 'package:expose_master/frontend/shared/link_text.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +40,72 @@ class LandingLayout extends StatelessWidget {
             ),
           ),
         ),
+        actions: [
+          SizedBox(
+            width: size.width * 0.85,
+            child: Center(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    LinkText(
+                      color: Colors.white,
+                      text: "Iniciativas",
+                      onPressed: () {
+                        if (RouterBuilderManager.routerPath !=
+                            RouterPath.dash) {
+                          RouterBuilderManager.routerPath = RouterPath.dash;
+                          NavigationRouter.replaceTo(SystemRouter.dash);
+                        }
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    LinkText(
+                      color: Colors.white,
+                      text: "Centro de ayuda",
+                      onPressed: () {
+                        if (RouterBuilderManager.routerPath !=
+                            RouterPath.help) {
+                          RouterBuilderManager.routerPath = RouterPath.help;
+                          NavigationRouter.replaceTo(SystemRouter.help);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    LinkText(
+                      color: Colors.white,
+                      text: "Iniciar Sesión",
+                      onPressed: () {
+                        if (RouterBuilderManager.routerPath !=
+                            RouterPath.login) {
+                          RouterBuilderManager.routerPath = RouterPath.login;
+                          NavigationRouter.replaceTo(SystemRouter.login);
+                        }
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                    LinkText(
+                      color: Colors.white,
+                      text: "Registrarse",
+                      onPressed: () {
+                        if (RouterBuilderManager.routerPath !=
+                            RouterPath.register) {
+                          RouterBuilderManager.routerPath = RouterPath.register;
+                          NavigationRouter.replaceTo(SystemRouter.register);
+                        }
+                      },
+                    ),
+                    const SizedBox(width: 10),
+                  ],
+                ),
+              ],
+            )),
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -95,8 +161,14 @@ class _Footer extends StatelessWidget {
             ),
           ),
         ),
-        const LinkText(
+        LinkText(
           text: 'Centro de ayuda',
+          onPressed: () {
+            RouterBuilderManager.routerPath = RouterPath.help;
+            NavigationRouter.navigateTo(
+              SystemRouter.help,
+            );
+          },
         ),
       ],
     );

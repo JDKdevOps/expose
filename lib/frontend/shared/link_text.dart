@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class LinkText extends StatefulWidget {
+  final Color? color;
   final String text;
   final Function? onPressed;
 
-  const LinkText({Key? key, required this.text, this.onPressed})
+  const LinkText({Key? key, required this.text, this.onPressed, this.color})
       : super(key: key);
 
   @override
@@ -28,7 +29,7 @@ class _LinkTextState extends State<LinkText> {
             widget.text,
             style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey[700],
+                color: widget.color ?? Colors.grey[700],
                 decoration:
                     isHover ? TextDecoration.underline : TextDecoration.none),
           ),

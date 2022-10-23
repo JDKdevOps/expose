@@ -1,6 +1,7 @@
 import 'package:expose_master/backend/router/router_manager.dart';
-import 'package:expose_master/frontend/404/not_found.dart';
+import 'package:expose_master/frontend/404/not_found_page.dart';
 import 'package:expose_master/frontend/Authentication/login_page.dart';
+import 'package:expose_master/frontend/Informacion%20Adicional/help_center_page.dart';
 import 'package:expose_master/frontend/landing%20Page/landing_page.dart';
 import 'package:fluro/fluro.dart';
 
@@ -17,6 +18,13 @@ class RouterHandlers {
   static Handler root = Handler(
     handlerFunc: (context, parameters) {
       return const LandingPage();
+    },
+  );
+
+  //Help
+  static Handler help = Handler(
+    handlerFunc: (context, parameters) {
+      return const HelpCenterPage();
     },
   );
 
