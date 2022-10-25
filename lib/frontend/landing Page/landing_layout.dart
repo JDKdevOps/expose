@@ -18,6 +18,7 @@ class LandingLayout extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      backgroundColor: const Color(0xffEDF1F2),
       appBar: AppBar(
         backgroundColor: Colors.black,
         elevation: 5,

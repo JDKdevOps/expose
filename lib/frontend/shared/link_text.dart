@@ -28,6 +28,7 @@ class _LinkTextState extends State<LinkText> {
           child: Text(
             widget.text,
             style: TextStyle(
+                fontFamily: "MontserratAlternates",
                 fontSize: 16,
                 color: widget.color ?? Colors.grey[700],
                 decoration:

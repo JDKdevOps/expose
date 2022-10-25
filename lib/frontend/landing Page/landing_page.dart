@@ -18,7 +18,7 @@ class LandingPage extends StatelessWidget {
           style: TextStyle(
             fontFamily: "MontserratAlternates",
             fontSize: 80,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 50),

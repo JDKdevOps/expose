@@ -39,6 +39,7 @@ class _CustomButtonState extends State<CustomButton> {
         child: Text(
           widget.text,
           style: TextStyle(
+            fontFamily: "MontserratAlternates",
             color: isHover ? Colors.black : Colors.white,
             fontSize: 16,
           ),

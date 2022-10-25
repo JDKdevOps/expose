@@ -37,5 +37,13 @@ class SystemRouter {
     //Login
     router.define(login,
         handler: RouterHandlers.login, transitionType: TransitionType.none);
+
+    //Register
+    router.define(register,
+        handler: RouterHandlers.register, transitionType: TransitionType.none);
+
+    //Iniciatives
+    router.define(dash,
+        handler: RouterHandlers.dash, transitionType: TransitionType.none);
   }
 }
