@@ -6,11 +6,12 @@ class CustomInput extends StatelessWidget {
   final String hint;
   final String label;
   final bool? obscureText;
-  final IconData icon;
+  final IconData? icon;
   final IconButton? iconButton;
   final String? initialValue;
   final bool? readOnly;
   final int? maxLength;
+  final int? maxLines;
   final TextInputFormatter? inputFormatter;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
@@ -20,11 +21,12 @@ class CustomInput extends StatelessWidget {
       required this.hint,
       required this.label,
       this.obscureText,
-      required this.icon,
+      this.icon,
       this.iconButton,
       this.initialValue,
       this.readOnly,
       this.maxLength,
+      this.maxLines,
       this.inputFormatter,
       this.validator,
       this.onChanged,
@@ -37,6 +39,7 @@ class CustomInput extends StatelessWidget {
       controller: controller,
       readOnly: readOnly ?? false,
       maxLength: maxLength,
+      maxLines: maxLines,
       initialValue: initialValue,
       obscureText: obscureText ?? false,
       onChanged: onChanged,
@@ -51,7 +54,7 @@ class CustomInput extends StatelessWidget {
 InputDecoration inputDecoration(
         {required String hint,
         required String label,
-        required IconData icon,
+        IconData? icon,
         IconButton? iconButton}) =>
     InputDecoration(
       border: const OutlineInputBorder(
@@ -77,10 +80,12 @@ InputDecoration inputDecoration(
       ),
       hintText: hint,
       labelText: label,
-      prefixIcon: Icon(
-        icon,
-        color: Colors.black54,
-      ),
+      prefixIcon: icon != null
+          ? Icon(
+              icon,
+              color: Colors.black54,
+            )
+          : null,
       suffixIcon: iconButton,
       hintStyle: const TextStyle(color: Colors.black54),
       labelStyle: const TextStyle(

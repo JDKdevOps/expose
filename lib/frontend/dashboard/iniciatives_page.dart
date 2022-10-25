@@ -1,6 +1,7 @@
 import 'package:expose_master/backend/providers/dash_provider.dart';
 import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/frontend/dashboard/views/comments_view.dart';
+import 'package:expose_master/frontend/dashboard/views/contact_form_view.dart';
 import 'package:expose_master/frontend/dashboard/views/initiative_view.dart';
 import 'package:expose_master/frontend/shared/custom_card.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -43,7 +44,7 @@ class IniciativesPage extends StatelessWidget {
                       ...snapshot.data!.map(
                         (e) => CustomCard(
                           width: 400,
-                          height: 75,
+                          height: 100,
                           title: e.iniNombre!,
                           assetImg: "imgs/initiative.svg",
                           options: CustomOptions(
@@ -58,7 +59,13 @@ class IniciativesPage extends StatelessWidget {
                               OptionProps(
                                 title: "Comentarios",
                                 icon: Icons.comment_outlined,
-                                content:  CommentsView(initiative: e),
+                                content: CommentsView(initiative: e),
+                              ),
+                              //Formulario de contacto
+                              OptionProps(
+                                title: "Contáctanos",
+                                icon: Icons.mail_outline,
+                                content: ContactFormView(initiative: e),
                               ),
                             ],
                           ),

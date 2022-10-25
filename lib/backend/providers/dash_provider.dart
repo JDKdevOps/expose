@@ -20,9 +20,14 @@ class DashProvider extends ChangeNotifier {
   List<InitiativeRating> ratingList = [];
 
   //Controlador para la caja de comentarios
-  String comment = "";
   GlobalKey<FormState> commentsForm = GlobalKey<FormState>();
-  TextEditingController commentsController = TextEditingController();
+  String comment = "";
+
+  //Controlador para el formulario de contacto
+  GlobalKey<FormState> contactForm = GlobalKey<FormState>();
+  String remitente = "";
+  String asunto = "";
+  String contenido = "";
 
   //Funcion para obtener las iniciativas
   Future<List<Initiative>> getIniciativas() async {
@@ -144,6 +149,25 @@ class DashProvider extends ChangeNotifier {
     });
 
     notifyListeners();
+  }
+
+  //Función para enviar formulario de contacto
+  Future<void> sendInitiativeMessage(int id) async {
+    final timestamp = DateTime.now();
+
+    final body = jsonEncode({
+      "titulo": asunto,
+      "contenido": contenido,
+      "fecha": "${timestamp.year}-${timestamp.month}-${timestamp.day}",
+      "hora": "${timestamp.hour}:${timestamp.minute}:${timestamp.second}",
+      "fk_id_usuario": remitente,
+      "fk_id_iniciativa": id
+    });
+
+    await http.post(
+        Uri.parse("${SystemData.ipServer}/api/initiatives/message/add"),
+        headers: {"content-type": "application/json; charset=utf-8"},
+        body: body);
   }
 }
 

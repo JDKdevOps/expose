@@ -82,7 +82,6 @@ class CommentsView extends StatelessWidget {
                     hint: "Mi comentario",
                     label: "Escribe un comentario",
                     icon: Icons.comment_bank_outlined,
-                    controller: dash.commentsController,
                     validator: FormValidators.defaultValidator,
                     onChanged: (p0) => dash.comment = p0,
                     iconButton: IconButton(

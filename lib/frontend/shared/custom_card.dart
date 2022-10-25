@@ -49,13 +49,7 @@ class CustomCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              options,
-            ],
-          ),
+          options,
           if (extraOptions != null) ...{
             const Divider(),
             extraOptions!,
@@ -82,6 +76,7 @@ class CustomOptions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         ...options.map(
           (e) {
