@@ -49,6 +49,7 @@ class CustomCard extends StatelessWidget {
               fit: BoxFit.cover,
             ),
           ),
+          const SizedBox(height: 10),
           options,
           if (extraOptions != null) ...{
             const Divider(),
