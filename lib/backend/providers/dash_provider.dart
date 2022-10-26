@@ -31,20 +31,10 @@ class DashProvider extends ChangeNotifier {
       Uri.parse("${SystemData.ipServer}/api/initiatives/page/$_index"),
     );
 
-    final result = InitiativesList.fromJson(
+    return InitiativesList.fromJson(
           jsonDecode(response.body),
         ).initiatives ??
         <Initiative>[];
-
-    //Si está autenticado, cargar sus calificaciones a las iniciativas
-    if (routerStatus == RouterStatus.auth) {
-      for (var element in result) {
-        element.miCalificacion =
-            await getRating(element.idIniciativa!.toString());
-      }
-    }
-
-    return result;
   }
 
   //Función para obtener la calificación de las iniciativas

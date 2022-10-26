@@ -4,7 +4,6 @@ import 'package:expose_master/backend/services/js_alert.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
 import 'package:expose_master/frontend/shared/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class RegisterStudentView extends StatelessWidget {

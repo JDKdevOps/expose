@@ -6,7 +6,10 @@ import 'package:expose_master/frontend/Authentication/login_page.dart';
 import 'package:expose_master/frontend/Authentication/register_page.dart';
 import 'package:expose_master/frontend/Grupos/groups_page.dart';
 import 'package:expose_master/frontend/Informacion%20Adicional/help_center_page.dart';
-import 'package:expose_master/frontend/dashboard/iniciatives_page.dart';
+import 'package:expose_master/frontend/Leaders/leaders_page.dart';
+import 'package:expose_master/frontend/Profile/profile_page.dart';
+import 'package:expose_master/frontend/Proposals/proposals_page.dart';
+import 'package:expose_master/frontend/Initiatives/iniciatives_page.dart';
 import 'package:expose_master/frontend/landing%20Page/landing_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provider/provider.dart';
@@ -98,7 +101,55 @@ class RouterHandlers {
         side.setCurrentPageUrl(RouterPath.groups);
         return const GroupsPage();
       }
-      RouterBuilderManager.routerPath = RouterPath.groups;
+      RouterBuilderManager.routerPath = RouterPath.root;
+      return const LandingPage();
+    },
+  );
+
+  //Perfil
+  static Handler profile = Handler(
+    handlerFunc: (context, parameters) {
+      final auth = Provider.of<AuthProvider>(context!);
+
+      if (auth.routerStatus == RouterStatus.auth) {
+        RouterBuilderManager.routerPath = RouterPath.profile;
+        final side = Provider.of<SideMenuProvider>(context);
+        side.setCurrentPageUrl(RouterPath.profile);
+        return const ProfilePage();
+      }
+      RouterBuilderManager.routerPath = RouterPath.root;
+      return const LandingPage();
+    },
+  );
+
+  //Leaders
+  static Handler leaders = Handler(
+    handlerFunc: (context, parameters) {
+      final auth = Provider.of<AuthProvider>(context!);
+
+      if (auth.routerStatus == RouterStatus.auth) {
+        RouterBuilderManager.routerPath = RouterPath.leaders;
+        final side = Provider.of<SideMenuProvider>(context);
+        side.setCurrentPageUrl(RouterPath.leaders);
+        return const LeadersPage();
+      }
+      RouterBuilderManager.routerPath = RouterPath.root;
+      return const LandingPage();
+    },
+  );
+
+  //Proposals
+  static Handler proposals = Handler(
+    handlerFunc: (context, parameters) {
+      final auth = Provider.of<AuthProvider>(context!);
+
+      if (auth.routerStatus == RouterStatus.auth) {
+        RouterBuilderManager.routerPath = RouterPath.proposals;
+        final side = Provider.of<SideMenuProvider>(context);
+        side.setCurrentPageUrl(RouterPath.proposals);
+        return const ProposalsPage();
+      }
+      RouterBuilderManager.routerPath = RouterPath.root;
       return const LandingPage();
     },
   );

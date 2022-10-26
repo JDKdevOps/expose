@@ -1,10 +1,10 @@
 import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/providers/dash_provider.dart';
-import 'package:expose_master/frontend/dashboard/views/comments_view.dart';
-import 'package:expose_master/frontend/dashboard/views/contact_form_view.dart';
-import 'package:expose_master/frontend/dashboard/views/initiative_view.dart';
+import 'package:expose_master/frontend/Initiatives/views/comments_view.dart';
+import 'package:expose_master/frontend/Initiatives/views/contact_form_view.dart';
+import 'package:expose_master/frontend/Initiatives/views/initiative_view.dart';
+import 'package:expose_master/frontend/Initiatives/views/rating_view.dart';
 import 'package:expose_master/frontend/shared/custom_card.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -87,6 +87,19 @@ class IniciativesPage extends StatelessWidget {
                                             initiative: e,
                                             routerStatus: auth.routerStatus),
                                       ),
+                                      //Calificación
+                                      if (auth.routerStatus ==
+                                          RouterStatus.auth) ...{
+                                        OptionProps(
+                                          title: "Calificación",
+                                          icon: Icons.star_border_outlined,
+                                          content: RatingView(
+                                              promedio:
+                                                  e.iniCalificacionPromedio!,
+                                              idInitiative:
+                                                  e.idIniciativa.toString()),
+                                        ),
+                                      },
                                       //Formulario de contacto
                                       OptionProps(
                                         title: "Contáctanos",
@@ -95,45 +108,19 @@ class IniciativesPage extends StatelessWidget {
                                       ),
                                     ],
                                   ),
-                                  extraOptions: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        "Calificación: ${double.parse(
-                                          e.iniCalificacionPromedio!
-                                              .toStringAsFixed(2),
-                                        )}",
-                                        style: const TextStyle(
-                                          fontFamily: "MontserratAlternates",
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                  extraOptions: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Calificación: ${double.parse(
+                                        e.iniCalificacionPromedio!
+                                            .toStringAsFixed(2),
+                                      )}",
+                                      style: const TextStyle(
+                                        fontFamily: "MontserratAlternates",
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      if (auth.routerStatus ==
-                                          RouterStatus.auth) ...{
-                                        RatingBar.builder(
-                                          itemSize: 25,
-                                          initialRating: e.miCalificacion!,
-                                          minRating: 0,
-                                          maxRating: 5,
-                                          direction: Axis.horizontal,
-                                          allowHalfRating: true,
-                                          itemPadding:
-                                              const EdgeInsets.symmetric(
-                                                  horizontal: 4),
-                                          itemBuilder: (context, index) =>
-                                              const Icon(
-                                            Icons.star_border_outlined,
-                                            size: 50,
-                                          ),
-                                          onRatingUpdate: (value) {
-                                            dash.updateRating(
-                                                e.idIniciativa!, value);
-                                          },
-                                        ),
-                                      }
-                                    ],
+                                    ),
                                   ),
                                 ),
                               ),

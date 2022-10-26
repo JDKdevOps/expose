@@ -21,7 +21,7 @@ class SystemRouter {
   static String dashLeaders = "/dash/leaders";
   static String dashProposals = "/dash/proposals";
   static String dashComments = "/dash/comments";
-  static String dashCoordinators = "/dash/coordinators";
+  static String dashAdmin = "/dash/admin";
 
   //DefineRoutes
   static void initRouter() {
@@ -49,5 +49,17 @@ class SystemRouter {
     //Groups
     router.define(dashGroups,
         handler: RouterHandlers.groups, transitionType: TransitionType.none);
+
+    //Profile
+    router.define(dashProfile,
+        handler: RouterHandlers.profile, transitionType: TransitionType.none);
+
+    //Leaders
+    router.define(dashLeaders,
+        handler: RouterHandlers.leaders, transitionType: TransitionType.none);
+
+    //Proposals
+    router.define(dashProposals,
+        handler: RouterHandlers.proposals, transitionType: TransitionType.none);
   }
 }

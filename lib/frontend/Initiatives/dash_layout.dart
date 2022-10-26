@@ -1,4 +1,4 @@
-import 'package:expose_master/frontend/dashboard/widgets/sidebar.dart';
+import 'package:expose_master/frontend/Initiatives/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
 class DashLayout extends StatelessWidget {

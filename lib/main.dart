@@ -3,7 +3,7 @@ import 'package:expose_master/backend/router/navigation_service.dart';
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/services/local_storage.dart';
 import 'package:expose_master/firebase_options.dart';
-import 'package:expose_master/frontend/dashboard/dash_layout.dart';
+import 'package:expose_master/frontend/Initiatives/dash_layout.dart';
 import 'package:expose_master/frontend/landing%20Page/landing_layout.dart';
 import 'package:expose_master/main_provider.dart';
 import 'package:firebase_core/firebase_core.dart';

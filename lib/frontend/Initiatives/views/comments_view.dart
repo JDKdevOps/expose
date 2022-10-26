@@ -2,7 +2,7 @@ import 'package:expose_master/backend/classes/iniciativa.dart';
 import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/providers/dash_provider.dart';
 import 'package:expose_master/backend/services/form_validators.dart';
-import 'package:expose_master/frontend/dashboard/widgets/comment_section.dart';
+import 'package:expose_master/frontend/Initiatives/widgets/comment_section.dart';
 import 'package:expose_master/frontend/shared/custom_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
