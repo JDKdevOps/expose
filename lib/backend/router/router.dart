@@ -45,5 +45,9 @@ class SystemRouter {
     //Iniciatives
     router.define(dash,
         handler: RouterHandlers.dash, transitionType: TransitionType.none);
+
+    //Groups
+    router.define(dashGroups,
+        handler: RouterHandlers.groups, transitionType: TransitionType.none);
   }
 }

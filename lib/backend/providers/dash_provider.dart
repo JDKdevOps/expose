@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:expose_master/backend/classes/comments.dart';
 import 'package:expose_master/backend/classes/iniciativa.dart';
-import 'package:expose_master/backend/router/router_manager.dart';
+import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/services/system.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -16,21 +16,17 @@ class DashProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  //Lista para controlar las calificaciones (onlyAuth)
-  List<InitiativeRating> ratingList = [];
-
   //Controlador para la caja de comentarios
   GlobalKey<FormState> commentsForm = GlobalKey<FormState>();
   String comment = "";
 
   //Controlador para el formulario de contacto
   GlobalKey<FormState> contactForm = GlobalKey<FormState>();
-  String remitente = "";
   String asunto = "";
   String contenido = "";
 
   //Funcion para obtener las iniciativas
-  Future<List<Initiative>> getIniciativas() async {
+  Future<List<Initiative>> getIniciativas(RouterStatus routerStatus) async {
     var response = await http.get(
       Uri.parse("${SystemData.ipServer}/api/initiatives/page/$_index"),
     );
@@ -41,16 +37,10 @@ class DashProvider extends ChangeNotifier {
         <Initiative>[];
 
     //Si está autenticado, cargar sus calificaciones a las iniciativas
-    if (RouterBuilderManager.routerStatus == RouterStatus.auth) {
+    if (routerStatus == RouterStatus.auth) {
       for (var element in result) {
-        ratingList.add(
-          InitiativeRating(
-            initiative: element.idIniciativa!.toString(),
-            value: await getRating(
-              element.idIniciativa!.toString(),
-            ),
-          ),
-        );
+        element.miCalificacion =
+            await getRating(element.idIniciativa!.toString());
       }
     }
 
@@ -160,7 +150,7 @@ class DashProvider extends ChangeNotifier {
       "contenido": contenido,
       "fecha": "${timestamp.year}-${timestamp.month}-${timestamp.day}",
       "hora": "${timestamp.hour}:${timestamp.minute}:${timestamp.second}",
-      "fk_id_usuario": remitente,
+      "fk_id_usuario": SystemData.userData!.idUsuarioCorreo,
       "fk_id_iniciativa": id
     });
 

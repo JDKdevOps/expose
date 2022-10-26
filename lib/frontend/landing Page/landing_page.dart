@@ -1,6 +1,5 @@
 import 'package:expose_master/backend/router/navigation_service.dart';
 import 'package:expose_master/backend/router/router.dart';
-import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
 import 'package:flutter/material.dart';
 
@@ -42,7 +41,6 @@ Puedes echar un vistazo o unirte a nuestro grupo de emprendedores, ¿Qué espera
             CustomButton(
               text: "Ingresar como Visitante",
               onPressed: () {
-                RouterBuilderManager.routerPath = RouterPath.dash;
                 NavigationRouter.navigateTo(
                   SystemRouter.dash,
                 );
@@ -54,7 +52,6 @@ Puedes echar un vistazo o unirte a nuestro grupo de emprendedores, ¿Qué espera
             CustomButton(
               text: "Ingresar como Expositor",
               onPressed: () {
-                RouterBuilderManager.routerPath = RouterPath.login;
                 NavigationRouter.navigateTo(
                   SystemRouter.login,
                 );

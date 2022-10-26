@@ -1,5 +1,5 @@
+import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/router/navigation_service.dart';
-import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/backend/router/router.dart';
 import 'package:expose_master/backend/services/local_storage.dart';
 import 'package:expose_master/firebase_options.dart';
@@ -8,6 +8,7 @@ import 'package:expose_master/frontend/landing%20Page/landing_layout.dart';
 import 'package:expose_master/main_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   //[Base de datos NoSQL]
@@ -48,9 +49,17 @@ class ExposeApp extends StatelessWidget {
       initialRoute: SystemRouter.root,
       onGenerateRoute: (settings) => SystemRouter.router.generator(settings),
       navigatorKey: NavigationRouter.navigatorKey,
-      builder: (_, child) {
-        if (RouterBuilderManager.routerStatus == RouterStatus.auth) {
+      builder: (context, child) {
+        final auth = Provider.of<AuthProvider>(context);
+
+        if (auth.routerStatus == RouterStatus.auth) {
           return DashLayout(widget: child!);
+        } else if (auth.routerStatus == RouterStatus.checking) {
+          return const Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
         }
         return LandingLayout(widget: child!);
       },

@@ -25,7 +25,6 @@ class LandingLayout extends StatelessWidget {
         title: GestureDetector(
           onTap: () {
             if (RouterBuilderManager.routerPath != RouterPath.root) {
-              RouterBuilderManager.routerPath = RouterPath.root;
               NavigationRouter.replaceTo(SystemRouter.root);
             }
           },
@@ -56,7 +55,6 @@ class LandingLayout extends StatelessWidget {
                       onPressed: () {
                         if (RouterBuilderManager.routerPath !=
                             RouterPath.dash) {
-                          RouterBuilderManager.routerPath = RouterPath.dash;
                           NavigationRouter.replaceTo(SystemRouter.dash);
                         }
                       },
@@ -68,7 +66,6 @@ class LandingLayout extends StatelessWidget {
                       onPressed: () {
                         if (RouterBuilderManager.routerPath !=
                             RouterPath.help) {
-                          RouterBuilderManager.routerPath = RouterPath.help;
                           NavigationRouter.replaceTo(SystemRouter.help);
                         }
                       },
@@ -83,7 +80,6 @@ class LandingLayout extends StatelessWidget {
                       onPressed: () {
                         if (RouterBuilderManager.routerPath !=
                             RouterPath.login) {
-                          RouterBuilderManager.routerPath = RouterPath.login;
                           NavigationRouter.replaceTo(SystemRouter.login);
                         }
                       },
@@ -95,7 +91,6 @@ class LandingLayout extends StatelessWidget {
                       onPressed: () {
                         if (RouterBuilderManager.routerPath !=
                             RouterPath.register) {
-                          RouterBuilderManager.routerPath = RouterPath.register;
                           NavigationRouter.replaceTo(SystemRouter.register);
                         }
                       },
@@ -165,7 +160,6 @@ class _Footer extends StatelessWidget {
         LinkText(
           text: 'Centro de ayuda',
           onPressed: () {
-            RouterBuilderManager.routerPath = RouterPath.help;
             NavigationRouter.navigateTo(
               SystemRouter.help,
             );

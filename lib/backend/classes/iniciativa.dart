@@ -26,6 +26,7 @@ class Initiative {
   String? iniNombre;
   String? iniDescripcion;
   double? iniCalificacionPromedio;
+  double? miCalificacion;
   String? iniDiapositiva;
   String? iniVideo;
   String? gruNombre;
@@ -35,6 +36,7 @@ class Initiative {
       this.iniNombre,
       this.iniDescripcion,
       this.iniCalificacionPromedio,
+      this.miCalificacion,
       this.iniDiapositiva,
       this.iniVideo,
       this.gruNombre});
@@ -44,6 +46,7 @@ class Initiative {
     iniNombre = json['ini_nombre'];
     iniDescripcion = json['ini_descripcion'];
     iniCalificacionPromedio = json['ini_calificacion_promedio'];
+    miCalificacion = json["mi_calificacion"];
     iniDiapositiva = json['ini_diapositiva'];
     iniVideo = json['ini_video'];
     gruNombre = json['gru_nombre'];
@@ -55,6 +58,7 @@ class Initiative {
     data['ini_nombre'] = iniNombre;
     data['ini_descripcion'] = iniDescripcion;
     data['ini_calificacion_promedio'] = iniCalificacionPromedio;
+    data["mi_calificacion"] = miCalificacion;
     data['ini_diapositiva'] = iniDiapositiva;
     data['ini_video'] = iniVideo;
     data['gru_nombre'] = gruNombre;

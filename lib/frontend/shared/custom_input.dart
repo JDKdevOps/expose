@@ -39,7 +39,7 @@ class CustomInput extends StatelessWidget {
       controller: controller,
       readOnly: readOnly ?? false,
       maxLength: maxLength,
-      maxLines: maxLines,
+      maxLines: maxLines ?? 1,
       initialValue: initialValue,
       obscureText: obscureText ?? false,
       onChanged: onChanged,

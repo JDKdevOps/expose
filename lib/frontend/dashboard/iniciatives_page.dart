@@ -1,5 +1,5 @@
+import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/providers/dash_provider.dart';
-import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/frontend/dashboard/views/comments_view.dart';
 import 'package:expose_master/frontend/dashboard/views/contact_form_view.dart';
 import 'package:expose_master/frontend/dashboard/views/initiative_view.dart';
@@ -15,6 +15,7 @@ class IniciativesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dash = Provider.of<DashProvider>(context);
+    final auth = Provider.of<AuthProvider>(context);
 
     return Container(
       margin: const EdgeInsets.all(20),
@@ -55,7 +56,7 @@ class IniciativesPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: FutureBuilder(
-                    future: dash.getIniciativas(),
+                    future: dash.getIniciativas(auth.routerStatus),
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                         dash.empty = false;
@@ -66,7 +67,7 @@ class IniciativesPage extends StatelessWidget {
                             children: [
                               ...snapshot.data!.map(
                                 (e) => CustomCard(
-                                  width: 400,
+                                  width: 350,
                                   height: 80,
                                   title: e.iniNombre!,
                                   assetImg: "imgs/initiative.svg",
@@ -82,7 +83,9 @@ class IniciativesPage extends StatelessWidget {
                                       OptionProps(
                                         title: "Comentarios",
                                         icon: Icons.comment_outlined,
-                                        content: CommentsView(initiative: e),
+                                        content: CommentsView(
+                                            initiative: e,
+                                            routerStatus: auth.routerStatus),
                                       ),
                                       //Formulario de contacto
                                       OptionProps(
@@ -103,19 +106,15 @@ class IniciativesPage extends StatelessWidget {
                                         )}",
                                         style: const TextStyle(
                                           fontFamily: "MontserratAlternates",
-                                          fontSize: 20,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                      if (RouterBuilderManager.routerStatus ==
+                                      if (auth.routerStatus ==
                                           RouterStatus.auth) ...{
                                         RatingBar.builder(
                                           itemSize: 25,
-                                          initialRating: dash.ratingList
-                                              .singleWhere((value) =>
-                                                  value.initiative ==
-                                                  e.idIniciativa!.toString())
-                                              .value,
+                                          initialRating: e.miCalificacion!,
                                           minRating: 0,
                                           maxRating: 5,
                                           direction: Axis.horizontal,

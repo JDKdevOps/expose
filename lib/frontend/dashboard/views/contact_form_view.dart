@@ -1,7 +1,9 @@
 import 'package:expose_master/backend/classes/iniciativa.dart';
+import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/providers/dash_provider.dart';
 import 'package:expose_master/backend/services/form_validators.dart';
 import 'package:expose_master/backend/services/js_alert.dart';
+import 'package:expose_master/backend/services/system.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
 import 'package:expose_master/frontend/shared/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +17,7 @@ class ContactFormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dash = Provider.of<DashProvider>(context);
+    final auth = Provider.of<AuthProvider>(context, listen: false);
 
     return Padding(
       padding: const EdgeInsets.all(10),
@@ -28,8 +31,10 @@ class ContactFormView extends StatelessWidget {
               label: "Nombre del interesado",
               icon: Icons.person_outline,
               maxLength: 255,
-              onChanged: (p0) => dash.remitente = p0,
+              initialValue:
+                  SystemData.userData?.idUsuarioCorreo ?? "Remitente@gmail.com",
               validator: FormValidators.emailValidator,
+              readOnly: true,
             ),
             const SizedBox(height: 20),
             CustomInput(
@@ -52,18 +57,30 @@ class ContactFormView extends StatelessWidget {
                 maxLength: 255,
               ),
             ),
-            const SizedBox(height: 20),
-            CustomButton(
-              text: "Enviar",
-              onPressed: () => {
-                if (dash.contactForm.currentState?.validate() ?? false)
-                  {
-                    dash.contactForm.currentState?.reset(),
-                    dash.sendInitiativeMessage(initiative.idIniciativa!).then(
-                        (value) => jsAlert("Formulario enviado con éxito")),
-                  }
-              },
-            ),
+            if (auth.routerStatus == RouterStatus.auth) ...{
+              const SizedBox(height: 20),
+              CustomButton(
+                text: "Enviar",
+                onPressed: () => {
+                  if (dash.contactForm.currentState?.validate() ?? false)
+                    {
+                      dash.contactForm.currentState?.reset(),
+                      dash.sendInitiativeMessage(initiative.idIniciativa!).then(
+                          (value) => jsAlert("Formulario enviado con éxito")),
+                    }
+                },
+              ),
+            } else ...{
+              const SizedBox(height: 50),
+              const Text(
+                "Inicia sesión para poder contactarlos",
+                style: TextStyle(
+                  fontFamily: "MontserratAlternates",
+                  fontSize: 20,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            },
           ],
         ),
       ),

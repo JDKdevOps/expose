@@ -1,6 +1,6 @@
 import 'package:expose_master/backend/classes/iniciativa.dart';
+import 'package:expose_master/backend/providers/auth_provider.dart';
 import 'package:expose_master/backend/providers/dash_provider.dart';
-import 'package:expose_master/backend/router/router_manager.dart';
 import 'package:expose_master/backend/services/form_validators.dart';
 import 'package:expose_master/frontend/dashboard/widgets/comment_section.dart';
 import 'package:expose_master/frontend/shared/custom_input.dart';
@@ -10,8 +10,11 @@ import 'package:provider/provider.dart';
 
 class CommentsView extends StatelessWidget {
   final Initiative initiative;
+  final RouterStatus routerStatus;
 
-  const CommentsView({Key? key, required this.initiative}) : super(key: key);
+  const CommentsView(
+      {Key? key, required this.initiative, required this.routerStatus})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,7 @@ class CommentsView extends StatelessWidget {
           alignment: Alignment.center,
           width: double.infinity,
           height: 75,
-          child: RouterBuilderManager.routerStatus == RouterStatus.auth
+          child: routerStatus == RouterStatus.auth
               ? Form(
                   key: dash.commentsForm,
                   child: CustomInput(

@@ -1,3 +1,4 @@
+import 'package:expose_master/frontend/dashboard/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 
 class DashLayout extends StatelessWidget {
@@ -7,8 +8,18 @@ class DashLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Color(0xffEDF1F2),
+    return Scaffold(
+      backgroundColor: const Color(0xffEDF1F2),
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Row(
+          children: [
+            const Sidebar(),
+            Expanded(child: widget),
+          ],
+        ),
+      ),
     );
   }
 }

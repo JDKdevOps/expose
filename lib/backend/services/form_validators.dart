@@ -17,4 +17,11 @@ class FormValidators {
         ? null
         : 'Debes rellenar todos los campos';
   };
+
+  static String? Function(String?)? dateValidator = (value) {
+    if (DateTime.tryParse(value ?? "") == null) {
+      return "Ingresa un formato de fecha adecuado";
+    }
+    return null;
+  };
 }
