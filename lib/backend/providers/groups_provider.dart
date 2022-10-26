@@ -174,4 +174,15 @@ class GroupsProvider extends ChangeNotifier {
     return InboxList.fromJson(jsonDecode(response.body)).contactMessages ??
         <Inbox>[];
   }
+
+  //Función para solicitar liderazgo
+  Future<bool> requestLeader() async {
+    final response = await http.put(
+      Uri.parse(
+          "${SystemData.ipServer}/api/users/updateStudentStatus/${SystemData.studentData!.idEstudiante}"),
+      headers: {"content-type": "application/json; charset=utf-8"},
+      body: jsonEncode({"es_lider": 2}),
+    );
+    return jsonDecode(response.body)["result"] ?? false;
+  }
 }

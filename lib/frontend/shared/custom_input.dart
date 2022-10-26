@@ -7,7 +7,7 @@ class CustomInput extends StatelessWidget {
   final String label;
   final bool? obscureText;
   final IconData? icon;
-  final IconButton? iconButton;
+  final Widget? actionButton;
   final String? initialValue;
   final bool? readOnly;
   final int? maxLength;
@@ -22,7 +22,7 @@ class CustomInput extends StatelessWidget {
       required this.label,
       this.obscureText,
       this.icon,
-      this.iconButton,
+      this.actionButton,
       this.initialValue,
       this.readOnly,
       this.maxLength,
@@ -46,7 +46,7 @@ class CustomInput extends StatelessWidget {
       validator: validator,
       inputFormatters: inputFormatter != null ? [inputFormatter!] : null,
       decoration: inputDecoration(
-          hint: hint, label: label, icon: icon, iconButton: iconButton),
+          hint: hint, label: label, icon: icon, actionButton: actionButton),
     );
   }
 }
@@ -55,7 +55,7 @@ InputDecoration inputDecoration(
         {required String hint,
         required String label,
         IconData? icon,
-        IconButton? iconButton}) =>
+        Widget? actionButton}) =>
     InputDecoration(
       border: const OutlineInputBorder(
         borderSide: BorderSide(
@@ -86,7 +86,7 @@ InputDecoration inputDecoration(
               color: Colors.black54,
             )
           : null,
-      suffixIcon: iconButton,
+      suffixIcon: actionButton,
       hintStyle: const TextStyle(color: Colors.black54),
       labelStyle: const TextStyle(
         color: Colors.black54,

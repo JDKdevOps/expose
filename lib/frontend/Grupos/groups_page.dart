@@ -6,6 +6,8 @@ import 'package:expose_master/frontend/Grupos/views/inbox_view.dart';
 import 'package:expose_master/frontend/Grupos/views/initiatives_group_view.dart';
 import 'package:expose_master/frontend/Grupos/views/members_view.dart';
 import 'package:expose_master/frontend/Grupos/views/new_initiative_view.dart';
+import 'package:expose_master/frontend/Grupos/views/register_student_view.dart';
+import 'package:expose_master/frontend/Grupos/views/request_leader_view.dart';
 import 'package:expose_master/frontend/shared/custom_button.dart';
 import 'package:expose_master/frontend/shared/custom_card.dart';
 import 'package:expose_master/frontend/shared/custom_dialog.dart';
@@ -45,11 +47,26 @@ class GroupsPage extends StatelessWidget {
                 text: "Crear nuevo grupo",
                 onPressed: () {
                   if (SystemData.userData!.tipTipoUsuario != "Estudiante") {
-                  } else if (SystemData.studentData!.estEsLider != 1) {}
+                    return showDialog(
+                      context: context,
+                      builder: (context) => const CustomDialog(
+                        title: "Registrarme como studiante",
+                        content: RegisterStudentView(),
+                      ),
+                    );
+                  } else if (SystemData.studentData!.estEsLider != 1) {
+                    return showDialog(
+                      context: context,
+                      builder: (context) => const CustomDialog(
+                        title: "Solicitar liderazgo",
+                        content: RequestLeaderView(),
+                      ),
+                    );
+                  }
                   showDialog(
                     context: context,
                     builder: (context) => const CustomDialog(
-                      title: "Nuevo Grupo",
+                      title: "Nuevo grupo",
                       content: CreateGroupView(),
                     ),
                   );

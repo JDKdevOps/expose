@@ -87,7 +87,7 @@ class CommentsView extends StatelessWidget {
                     icon: Icons.comment_bank_outlined,
                     validator: FormValidators.defaultValidator,
                     onChanged: (p0) => dash.comment = p0,
-                    iconButton: IconButton(
+                    actionButton: IconButton(
                       onPressed: () {
                         if (dash.commentsForm.currentState?.validate() ??
                             false) {

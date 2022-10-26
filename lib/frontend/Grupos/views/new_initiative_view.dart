@@ -62,7 +62,7 @@ class NewInitiativeView extends StatelessWidget {
                 label: "Diapositivas",
                 icon: Icons.present_to_all_outlined,
                 validator: FormValidators.defaultValidator,
-                iconButton: IconButton(
+                actionButton: IconButton(
                   icon: const Icon(
                     Icons.file_present_outlined,
                     color: Colors.black,

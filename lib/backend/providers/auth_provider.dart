@@ -21,7 +21,7 @@ class AuthProvider extends ChangeNotifier {
   String correo = "";
   String passwd = "";
 
-  //Controladores para el registro
+  //Controladores para el registro de usuario persona
   GlobalKey<FormState> registerForm = GlobalKey<FormState>();
   bool _policy = false;
   bool get policy => _policy;
@@ -36,6 +36,13 @@ class AuthProvider extends ChangeNotifier {
   String regFechaNacimiento = "";
   String regCorreo = "";
   String regPasswd = "";
+
+  //Controladores para el registro de estudiante
+  GlobalKey<FormState> studentForm = GlobalKey<FormState>();
+  String studentId = "";
+  double studentPromedio = 0;
+  int studentFacultad = 0;
+  int studentSemestre = 0;
 
   //Función para verificar sesión
   Future<bool> isAuthenticated() async {
@@ -162,6 +169,30 @@ class AuthProvider extends ChangeNotifier {
       }),
     );
     return jsonDecode(response.body)["result"] ?? false;
+  }
+
+  //Función para registrar estudiante
+  Future<bool> registerSutent() async {
+    final response = await http.post(
+        Uri.parse("${SystemData.ipServer}/api/users/addStudent"),
+        headers: {"content-type": "application/json; charset=utf-8"},
+        body: jsonEncode({
+          "id": studentId,
+          "promedio_ponderado": studentPromedio,
+          "fk_id_persona": SystemData.userData!.fkIdPersona,
+          "fk_id_facultad": studentFacultad,
+          "fk_id_semestre": studentSemestre
+        }));
+
+    final request = jsonDecode(response.body)["result"] ?? false;
+
+    if (request) {
+      await http.put(
+        Uri.parse(
+            "${SystemData.ipServer}/api/users/updateType/${SystemData.userData!.idUsuarioCorreo!}"),
+      );
+    }
+    return request;
   }
 
   //Función para cerrar sesión
