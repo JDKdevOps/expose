@@ -4,6 +4,7 @@ import 'package:expose_master/backend/providers/groups_provider.dart';
 import 'package:expose_master/backend/providers/leaders_provider.dart';
 import 'package:expose_master/backend/providers/proposals_provider.dart';
 import 'package:expose_master/backend/providers/side_menu_provider.dart';
+import 'package:expose_master/backend/providers/users_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,6 +28,9 @@ class AppSate extends StatelessWidget {
       ),
       ChangeNotifierProvider(
         create: (context) => GroupsProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (context) => UsersProvider(),
       ),
       ChangeNotifierProvider(
         create: (context) => LeadersProvider(),

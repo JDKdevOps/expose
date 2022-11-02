@@ -50,7 +50,7 @@ Puedes echar un vistazo o unirte a nuestro grupo de emprendedores, ¿Qué espera
               width: 50,
             ),
             CustomButton(
-              text: "Ingresar como Expositor",
+              text: "Ingresar como Empresario",
               onPressed: () {
                 NavigationRouter.navigateTo(
                   SystemRouter.login,

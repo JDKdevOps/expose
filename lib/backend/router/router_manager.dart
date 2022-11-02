@@ -11,10 +11,7 @@ enum RouterPath {
   dash,
   groups,
   profile,
-  privacy,
   users,
   leaders,
   proposals,
-  comments,
-  admin
 }

@@ -95,9 +95,9 @@ class LeadersView extends StatelessWidget {
                   .updateLeader(leader.idEstudiante!, isAccepting ? 1 : 0)
                   .then((value) {
                 if (isAccepting || value) {
-                  return jsAlert("Usuario promovido exitosamente");
+                  return jsAlert("Usuario actualizado exitosamente");
                 }
-                jsAlert("Ha ocurrido un error al promover hacia lider");
+                jsAlert("Ha ocurrido un error al actualizar hacia lider");
               });
             })
       ],

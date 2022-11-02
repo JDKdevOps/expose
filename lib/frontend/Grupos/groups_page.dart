@@ -44,7 +44,9 @@ class GroupsPage extends StatelessWidget {
                 ),
               ),
               CustomButton(
-                text: "Crear nuevo grupo",
+                text: SystemData.userData!.tipTipoUsuario != "Estudiante"
+                    ? "Registrarme como Estudiante"
+                    : "Crear nuevo grupo",
                 onPressed: () {
                   if (SystemData.userData!.tipTipoUsuario != "Estudiante") {
                     return showDialog(

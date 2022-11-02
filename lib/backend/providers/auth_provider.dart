@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AuthProvider extends ChangeNotifier {
-  RouterStatus routerStatus = RouterStatus.checking;
+   RouterStatus routerStatus = RouterStatus.checking;
   AuthProvider() {
     isAuthenticated();
   }
@@ -112,7 +112,10 @@ class AuthProvider extends ChangeNotifier {
             "${SystemData.ipServer}/api/users/info/student/${SystemData.userData!.fkIdPersona}"));
         SystemData.studentData =
             StudentData.fromJson(jsonDecode(response.body)).user!.first;
+      } else {
+        SystemData.studentData = null;
       }
+
       //Register Sesion in NoSQL
       late String tokenId;
       await tokenGenerator().then((value) => tokenId = value);

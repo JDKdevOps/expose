@@ -10,6 +10,7 @@ import 'package:expose_master/frontend/Leaders/leaders_page.dart';
 import 'package:expose_master/frontend/Profile/profile_page.dart';
 import 'package:expose_master/frontend/Proposals/proposals_page.dart';
 import 'package:expose_master/frontend/Initiatives/iniciatives_page.dart';
+import 'package:expose_master/frontend/Users/users_page.dart';
 import 'package:expose_master/frontend/landing%20Page/landing_page.dart';
 import 'package:fluro/fluro.dart';
 import 'package:provider/provider.dart';
@@ -116,6 +117,22 @@ class RouterHandlers {
         final side = Provider.of<SideMenuProvider>(context);
         side.setCurrentPageUrl(RouterPath.profile);
         return const ProfilePage();
+      }
+      RouterBuilderManager.routerPath = RouterPath.root;
+      return const LandingPage();
+    },
+  );
+
+  //Usuarios
+  static Handler users = Handler(
+    handlerFunc: (context, parameters) {
+      final auth = Provider.of<AuthProvider>(context!);
+
+      if (auth.routerStatus == RouterStatus.auth) {
+        RouterBuilderManager.routerPath = RouterPath.users;
+        final side = Provider.of<SideMenuProvider>(context);
+        side.setCurrentPageUrl(RouterPath.users);
+        return const UsersPage();
       }
       RouterBuilderManager.routerPath = RouterPath.root;
       return const LandingPage();

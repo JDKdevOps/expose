@@ -33,7 +33,8 @@ class Sidebar extends StatelessWidget {
             isActive: side.currentPage == RouterPath.dash,
             onPressed: () => NavigationRouter.navigateTo(SystemRouter.dash),
           ),
-          if (SystemData.userData!.tipTipoUsuario == "Estudiante") ...{
+          if (SystemData.userData!.tipTipoUsuario == "Empresario" ||
+              SystemData.userData!.tipTipoUsuario == "Estudiante") ...{
             MenuItems(
               icon: Icons.groups_outlined,
               isActive: side.currentPage == RouterPath.groups,
@@ -53,7 +54,8 @@ class Sidebar extends StatelessWidget {
           if (SystemData.userData!.tipTipoUsuario == 'Coordinador' ||
               SystemData.userData!.tipTipoUsuario == "administrador") ...{
             const SizedBox(height: 50),
-            const TextSeparator(text: "Coordinador"),
+            TextSeparator(
+                text: SystemData.userData!.tipTipoUsuario!.capitalize()),
             MenuItems(
               icon: Icons.group_outlined,
               isActive: side.currentPage == RouterPath.users,
@@ -72,24 +74,8 @@ class Sidebar extends StatelessWidget {
               onPressed: () =>
                   NavigationRouter.navigateTo(SystemRouter.dashProposals),
             ),
-            MenuItems(
-              icon: Icons.comment_outlined,
-              isActive: side.currentPage == RouterPath.comments,
-              onPressed: () =>
-                  NavigationRouter.navigateTo(SystemRouter.dashComments),
-            ),
           },
-          //Área del administrador
-          if (SystemData.userData!.tipTipoUsuario == "administrador") ...{
-            const SizedBox(height: 40),
-            const TextSeparator(text: "Administrador"),
-            MenuItems(
-              icon: Icons.person_add_outlined,
-              isActive: side.currentPage == RouterPath.admin,
-              onPressed: () =>
-                  NavigationRouter.navigateTo(SystemRouter.dashAdmin),
-            ),
-          },
+
           const SizedBox(height: 40),
           const TextSeparator(text: "Salir"),
           MenuItems(
@@ -106,3 +92,10 @@ class Sidebar extends StatelessWidget {
 BoxDecoration buildBoxDecoration() => const BoxDecoration(
     color: Colors.black,
     boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)]);
+
+//Extensiones de funcionalida
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+}

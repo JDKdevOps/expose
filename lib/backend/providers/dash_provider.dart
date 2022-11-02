@@ -131,6 +131,12 @@ class DashProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  //Función para eliminar comentarios
+    Future<void> removeComment(String id) async {
+    await SystemData.userComments.doc(id).delete();
+    notifyListeners();
+  }
+
   //Función para enviar formulario de contacto
   Future<void> sendInitiativeMessage(int id) async {
     final timestamp = DateTime.now();

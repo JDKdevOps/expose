@@ -45,33 +45,8 @@ class LandingLayout extends StatelessWidget {
             width: size.width * 0.85,
             child: Center(
                 child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Row(
-                  children: [
-                    LinkText(
-                      color: Colors.white,
-                      text: "Iniciativas",
-                      onPressed: () {
-                        if (RouterBuilderManager.routerPath !=
-                            RouterPath.dash) {
-                          NavigationRouter.replaceTo(SystemRouter.dash);
-                        }
-                      },
-                    ),
-                    const SizedBox(width: 10),
-                    LinkText(
-                      color: Colors.white,
-                      text: "Centro de ayuda",
-                      onPressed: () {
-                        if (RouterBuilderManager.routerPath !=
-                            RouterPath.help) {
-                          NavigationRouter.replaceTo(SystemRouter.help);
-                        }
-                      },
-                    ),
-                  ],
-                ),
                 Row(
                   children: [
                     LinkText(

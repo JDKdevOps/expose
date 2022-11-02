@@ -32,6 +32,7 @@ class GroupsProvider extends ChangeNotifier {
 
   //Función para traer los grupos
   Future<List<Group>> getGroups() async {
+    grupos.clear();
     final response = await http.get(Uri.parse(
         "${SystemData.ipServer}/api/users/groups/${SystemData.studentData?.idEstudiante ?? '0'}"));
     grupos = GroupsList.fromJson(jsonDecode(response.body)).user ?? <Group>[];
@@ -120,6 +121,7 @@ class GroupsProvider extends ChangeNotifier {
 
   //Función para obtener miembros del grupo
   Future<List<Miembro>> getMembers(int idGroup) async {
+    miembros.clear();
     final response = await http
         .get(Uri.parse("${SystemData.ipServer}/api/groups/members/$idGroup"));
 
